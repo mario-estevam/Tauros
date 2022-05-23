@@ -20,6 +20,8 @@ public class Chamados {
     @Column(name = "chamado_id")
     private Long id;
 
+    private String status;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "problema_id")
     Problema problema;
