@@ -78,7 +78,16 @@
                                     </select>
                                     <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="role" class="form-label required">Setor do usuário</label>
+                                    <select  class="custom-select" id="setor" th:field="${usuario.setor}" required>
+                                        <option th:value="1">Informática</option>
+                                        <option th:value="2">Manutenção e obras</option>
+                                        <option th:value="3">Comunicação</option>
+                                        <option th:value="4">Almoxorifado</option>
+                                    </select>
+                                    <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
+                                </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Salvar
                                 </button>
@@ -105,8 +114,7 @@
     <!-- Core plugin JavaScript-->
     <script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script th:src="@{js/sb-admin-2.min.js}"></script>
+
 
 </body>
 

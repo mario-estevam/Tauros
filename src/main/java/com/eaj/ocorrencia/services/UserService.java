@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,10 @@ public class UserService {
         }
     }
 
+    public User findById(Long id){
+        return userRepository.getById(id);
+    }
+
     public Boolean findUserUsernameBoolean(String userName){
         User user = userRepository.findByUserName(userName);
         if(user ==null){
@@ -45,6 +50,10 @@ public class UserService {
         }else{
             return false;
         }
+    }
+
+    public List<User> getAll(){
+        return userRepository.findAll();
     }
 
     public User findUserByUserName(String userName) {

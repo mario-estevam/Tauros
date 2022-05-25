@@ -47,5 +47,8 @@ public class User {
     @JoinColumn(name = "role_id")
     Role role;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_setor")
+    Setor setor;
 
 }
