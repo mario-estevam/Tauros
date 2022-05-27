@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,7 +31,7 @@ public class SetorController {
         modelAndView.addObject("usuario2", user);
         Setor setor = new Setor();
         modelAndView.addObject("setor", setor);
-        modelAndView.setViewName("cadastro-setor");
+        modelAndView.setViewName("setor/cadastro-setor");
         return modelAndView;
     }
 
@@ -42,12 +40,13 @@ public class SetorController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        System.out.println(setor.getId());
+
         modelAndView.addObject("usuario2", user);
-            service.insert(setor);
-            modelAndView.addObject("successMessage", "Setor cadastrado com sucesso");;
-            modelAndView.addObject("setor", setor);
-            modelAndView.setViewName("cadastro-setor");
+        service.insert(setor);
+        modelAndView.addObject("successMessage", "Setor cadastrado com sucesso");
+        Setor setor1 = new Setor();
+        modelAndView.addObject("setor", setor1);
+        modelAndView.setViewName("setor/cadastro-setor");
 
         return modelAndView;
     }
@@ -67,7 +66,7 @@ public class SetorController {
         modelAndView.addObject("usuario2", user);
         List<Setor> setores = service.getAll();
         modelAndView.addObject("setores", setores);
-        modelAndView.setViewName("setores");
+        modelAndView.setViewName("setor/setores");
         return modelAndView;
     }
 
@@ -79,7 +78,7 @@ public class SetorController {
         modelAndView.addObject("usuario2", user);
         Setor setor = service.findById(id);
         modelAndView.addObject("setor", setor);
-        modelAndView.setViewName("atualizar-setor");
+        modelAndView.setViewName("setor/atualizar-setor");
         return modelAndView;
     }
 

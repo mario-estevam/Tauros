@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class SetorService {
@@ -19,6 +20,7 @@ public class SetorService {
     private void setSetorRepository(SetorRepository repository){ this.repository = repository; }
 
     public Setor insert(Setor setor){
+        setor.setNome(setor.getNome().toUpperCase(Locale.ROOT));
         return repository.save(setor);
     }
 

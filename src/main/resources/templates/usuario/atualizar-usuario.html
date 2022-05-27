@@ -89,12 +89,9 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="role" class="form-label required">Tipo de usuário</label>
+                                            <label class="form-label required">Setor</label>
                                             <select  class="custom-select" id="setor" th:field="${usuario.setor}" required>
-                                                <option th:value="1">Informática</option>
-                                                <option th:value="2">Manutenção e obras</option>
-                                                <option th:value="3">Comunicação</option>
-                                                <option th:value="4">Almoxorifado</option>
+                                                <option th:each="setor:${setores}" th:text="${setor.nome}"  th:value="${setor.id}"></option>
                                             </select>
                                             <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
                                         </div>

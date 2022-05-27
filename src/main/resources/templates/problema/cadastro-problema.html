@@ -29,7 +29,6 @@
             </nav>
             <!-- End of Topbar -->
 
-
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
@@ -42,19 +41,32 @@
                                 <div class="col-lg-12">
                                     <div class="p-5">
                                         <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">Atualizar setor</h1>
+                                            <h1 class="h4 text-gray-900 mb-4">Cadastrar problema</h1>
+                                            <span class="text-success" th:utext="${successMessage}"> </span>
                                         </div>
-                                        <form class="user" th:action="@{/admin/editar/setor}"
+                                        <form class="user" th:action="@{/admin/cadastro/problema}"
                                               method="post" autocomplete="off" role="form">
                                             <div class="form-group row">
                                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                                    <input hidden th:field="${setor.id}">
-                                                    <input th:field="${setor.nome}" type="text" class="form-control form-control-user" id="exampleFirstName"
-                                                           placeholder="Nome do setor">
+                                                    <label class="form-label required">Nome do problema</label>
+                                                    <input th:field="${problema.nome}" type="text" class="form-control form-control-user"
+                                                           placeholder="Nome do problema">
+                                                </div>
+                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                    <label class="form-label required">Descricao</label>
+                                                    <input th:field="${problema.descricao}" type="text" class="form-control form-control-user"
+                                                           placeholder="Descricao do problema">
+                                                </div>
+                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                    <label class="form-label required">Setor</label>
+                                                    <select  class="custom-select" id="setor" th:field="${problema.setor}" required>
+                                                        <option th:each="setor:${setores}" th:text="${setor.nome}"  th:value="${setor.id}"></option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                Atualizar
+                                                Cadastrar
                                             </button>
                                         </form>
 
@@ -72,12 +84,8 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
-                </div>
-            </div>
+        <footer th:replace="fragments/footer :: fragment-footer" >
+
         </footer>
         <!-- End of Footer -->
 
@@ -93,43 +101,12 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja sair?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Clique em logout para encerrar sua sessão.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="/logout">Logout</a>
-            </div>
-        </div>
-    </div>
+<div th:replace="fragments/nav-bar :: fragment-logout" >
+
+</div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
-<!-- Core plugin JavaScript-->
-<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-<!-- Custom scripts for all pages-->
-
-
-<!-- Page level plugins -->
-<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
-
-<!-- Page level custom scripts -->
-
-<script th:src="@{/js/demo/chart-area-demo.js}"></script>
-<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
-
+<th:block th:replace="fragments/head-page :: body-final"></th:block>
 </body>
 
 </html>
