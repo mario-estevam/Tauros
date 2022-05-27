@@ -118,5 +118,28 @@ public class ChamadoController {
         return "redirect:/admin/chamados";
     }
 
+    @GetMapping(value = "/detalhes/chamado/{id}")
+    public ModelAndView detalhesChamado(@PathVariable("id") Long id){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+
+        modelAndView.addObject("usuario2", user);
+
+        Chamado chamado = chamadoService.findById(id);
+        modelAndView.addObject("chamado", chamado);
+
+        modelAndView.setViewName("chamado/detalhes-chamado");
+        return modelAndView;
+    }
+
+
+    @RequestMapping("/deletar/chamado/{id}")
+    public String doDelete(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
+        chamadoService.delete(id);
+        redirectAttributes.addAttribute("msg", "Deletado com sucesso");
+        return "redirect:/index";
+    }
+
 
 }

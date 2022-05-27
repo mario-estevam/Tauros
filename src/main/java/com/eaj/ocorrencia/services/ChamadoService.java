@@ -51,7 +51,7 @@ public class ChamadoService {
     }
 
     public List<Chamado> meusChamados(User user){
-        return repository.getByUserOpen(user);
+        return repository.getByUserOpenAndDeleteIsNull(user);
     }
 
 }
