@@ -31,7 +31,7 @@ public class ProblemaController {
 
 
     @GetMapping(value = "/admin/listar/problemas")
-    public ModelAndView listSetores(){
+    public ModelAndView listProblemas(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
@@ -43,7 +43,7 @@ public class ProblemaController {
     }
 
     @GetMapping(value = "/admin/cadastro/problema")
-    public ModelAndView createSetor(){
+    public ModelAndView createProblema(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());

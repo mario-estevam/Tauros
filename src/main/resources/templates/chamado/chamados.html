@@ -35,14 +35,14 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Usuários</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Setores</h1>
                 </div>
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Tabela de usuários</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Tabela de problemas</h6>
                         <hr/>
-                        <a href="/admin/cadastro/usuario" class="btn btn-outline-primary"> Adicionar Usuário </a>
+                        <a href="/cadastro/chamado" class="btn btn-outline-primary"> Abrir Chamado </a>
                         <span th:if="${#request.getParameter('msg')} !=null" class="alert alert-info par position-relative" role="alert" th:text="${#request.getParameter('msg')}"></span>
                     </div>
                     <div class="card-body">
@@ -50,33 +50,38 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Nome</th>
-                                    <th>UserName</th>
-                                    <th>Função</th>
-                                    <th>Setor</th>
-                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Problema</th>
+                                    <th>Requisitante</th>
+                                    <th>Data de abertura</th>
+                                    <th>Setor Requisitante</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="usuario : ${usuarios}">
-                                    <td th:text="${usuario.nome}"></td>
-                                    <td th:text="${usuario.userName}"></td>
-                                    <td th:text="${usuario.role.getRole()}"></td>
-                                    <td th:if="(${usuario.setor})" th:text="${usuario.setor.getNome()}"></td>
-                                    <td th:unless="(${usuario.setor})">----</td>
-                                    <td th:text="${usuario.email}"></td>
+                                <tr th:each="chamado : ${chamados}">
+                                    <td th:text="${chamado.status}"></td>
+                                    <td th:text="${chamado.problema.nome}"></td>
+                                    <td th:text="${chamado.userOpen.nome}"></td>
+                                    <td th:text="${chamado.data}"></td>
+                                    <td th:text="${chamado.userOpen.setor.nome}"></td>
                                     <td>
-                                        <a th:href="@{'/admin/deletar/usuario/' + ${usuario.id}}" class="btn btn-danger btn-icon-split">
+                                        <a th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                             <span class="text">Excluir</span>
                                         </a>
-                                        <a th:href="@{'/admin/editar/usuario/' + ${usuario.id}}" class="btn btn-primary btn-icon-split ml-3">
+                                        <a th:href="@{'/editar/chamado/' + ${chamado.id}}" class="btn btn-primary btn-icon-split ml-3">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
                                             <span class="text">Editar</span>
+                                        </a>
+                                        <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class="btn btn-info btn-icon-split ml-3">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                            <span class="text">Detalhes</span>
                                         </a>
                                     </td>
                                 </tr>
@@ -115,7 +120,6 @@
 </div>
 
 <th:block th:replace="fragments/head-page :: body-final"></th:block>
-
 </body>
 
 </html>

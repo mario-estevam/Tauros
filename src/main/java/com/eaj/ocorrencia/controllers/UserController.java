@@ -1,8 +1,10 @@
 package com.eaj.ocorrencia.controllers;
 
+import com.eaj.ocorrencia.models.Chamado;
 import com.eaj.ocorrencia.models.Setor;
 import com.eaj.ocorrencia.models.User;
 import com.eaj.ocorrencia.repositories.RoleRepository;
+import com.eaj.ocorrencia.services.ChamadoService;
 import com.eaj.ocorrencia.services.SetorService;
 import com.eaj.ocorrencia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class UserController {
     @Autowired
     SetorService setorService;
 
+    @Autowired
+    ChamadoService chamadoService;
+
 
     @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
@@ -44,6 +49,11 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+
+        List<Chamado> chamados = chamadoService.meusChamados(user);
+        modelAndView.addObject("chamados", chamados);
+
+
         if(user != null){
             modelAndView.addObject("usuario2", user);
             System.out.println(user.getRole().getRole());

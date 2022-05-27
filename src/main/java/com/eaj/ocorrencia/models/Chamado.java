@@ -7,13 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Chamados {
+@Data
+public class Chamado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +23,12 @@ public class Chamados {
     private Long id;
 
     private String status;
+
+    private String descricao;
+
+    private Date data;
+
+    private Date delete;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "problema_id")
