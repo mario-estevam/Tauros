@@ -43,7 +43,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         if(user != null){
-            modelAndView.addObject("usuario", user);
+            modelAndView.addObject("usuario2", user);
             System.out.println(user.getRole().getRole());
             modelAndView.setViewName("index");
 

@@ -30,7 +30,7 @@ public class SetorController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        modelAndView.addObject("usuario", user);
+        modelAndView.addObject("usuario2", user);
         Setor setor = new Setor();
         modelAndView.addObject("setor", setor);
         modelAndView.setViewName("cadastro-setor");
@@ -43,7 +43,7 @@ public class SetorController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         System.out.println(setor.getId());
-        modelAndView.addObject("usuario", user);
+        modelAndView.addObject("usuario2", user);
             service.insert(setor);
             modelAndView.addObject("successMessage", "Setor cadastrado com sucesso");;
             modelAndView.addObject("setor", setor);
@@ -64,7 +64,7 @@ public class SetorController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        modelAndView.addObject("usuario", user);
+        modelAndView.addObject("usuario2", user);
         List<Setor> setores = service.getAll();
         modelAndView.addObject("setores", setores);
         modelAndView.setViewName("setores");
@@ -76,7 +76,7 @@ public class SetorController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        modelAndView.addObject("usuario", user);
+        modelAndView.addObject("usuario2", user);
         Setor setor = service.findById(id);
         modelAndView.addObject("setor", setor);
         modelAndView.setViewName("atualizar-setor");
