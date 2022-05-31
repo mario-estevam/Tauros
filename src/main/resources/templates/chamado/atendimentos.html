@@ -35,14 +35,13 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Chamados</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Atendimentos</h1>
                 </div>
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Tabela de chamados</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Meus atendimentos</h6>
                         <hr/>
-                        <a href="/cadastro/chamado" class="btn btn-outline-primary"> Abrir Chamado </a>
                         <span th:if="${#request.getParameter('msg')} !=null" class="alert alert-info par position-relative" role="alert" th:text="${#request.getParameter('msg')}"></span>
                     </div>
                     <div class="card-body">
@@ -65,23 +64,11 @@
                                     <td th:text="${chamado.data}"></td>
                                     <td th:text="${chamado.userOpen.setor.nome}"></td>
                                     <td>
-                                        <a th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="btn btn-danger btn-icon-split">
+                                        <a  th:href="@{'/admin/finalizar-atendimento/' + ${chamado.id}}" class="btn btn-success btn-icon-split ml-3">
                                             <span class="icon text-white-50">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fas fa-check"></i>
                                             </span>
-                                            <span class="text">Excluir</span>
-                                        </a>
-                                        <a th:href="@{'/editar/chamado/' + ${chamado.id}}" class="btn btn-primary btn-icon-split ml-3">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Editar</span>
-                                        </a>
-                                        <a  th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class="btn btn-info btn-icon-split ml-3">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                            <span class="text">Detalhes</span>
+                                            <span class="text">Finalizar atendimento</span>
                                         </a>
                                     </td>
                                 </tr>

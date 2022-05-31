@@ -26,7 +26,7 @@ public class Chamado {
 
     private String descricao;
 
-    private Date data;
+    private String data;
 
     private Date delete;
 

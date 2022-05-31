@@ -19,7 +19,7 @@ public class ChamadoService {
 
     public Chamado insert(Chamado chamado){
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
+        String date = data.format(new Date());
         chamado.setData(date);
         chamado.setStatus("ABERTO");
         return repository.save(chamado);
@@ -30,8 +30,14 @@ public class ChamadoService {
         return repository.save(chamado);
     }
 
+
+    public Chamado finalizar(Chamado chamado){
+        chamado.setStatus("CONCLUIDO");
+        return repository.save(chamado);
+    }
+
+
     public void delete(Long id){
-        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         Chamado chamado = repository.getById(id);
         chamado.setDelete(date);
@@ -46,6 +52,8 @@ public class ChamadoService {
         return repository.findAllByDeleteIsNull();
     }
 
+
+
     public List<Chamado> chamadosEmAberto(){
         return repository.findAllByUserCloseIsNull();
     }
@@ -53,5 +61,11 @@ public class ChamadoService {
     public List<Chamado> meusChamados(User user){
         return repository.getByUserOpenAndDeleteIsNull(user);
     }
+
+
+    public List<Chamado> meusAtendimentos(User user){
+        return repository.findAllByUserCloseAndDeleteIsNull(user);
+    }
+
 
 }

@@ -70,6 +70,22 @@ public class ChamadoController {
     }
 
 
+    @GetMapping(value = "/admin/chamados/meus-atendimentos")
+    public ModelAndView meusAtendimentos(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("usuario2", user);
+
+        List<Chamado> chamados = chamadoService.meusAtendimentos(user);
+        modelAndView.addObject("chamados", chamados);
+
+
+        modelAndView.setViewName("chamado/atendimentos");
+        return modelAndView;
+    }
+
+
     @GetMapping(value = "/cadastro/chamado")
     public ModelAndView createSetor(){
         ModelAndView modelAndView = new ModelAndView();
@@ -117,6 +133,16 @@ public class ChamadoController {
         chamadoService.update(chamado);
         return "redirect:/admin/chamados";
     }
+
+
+    @RequestMapping("/admin/finalizar-atendimento/{id}")
+    public String finalizarAtendimento(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
+        Chamado chamado = chamadoService.findById(id);
+        chamadoService.finalizar(chamado);
+        return "redirect:/admin/chamados/meus-atendimentos";
+    }
+
+
 
     @GetMapping(value = "/detalhes/chamado/{id}")
     public ModelAndView detalhesChamado(@PathVariable("id") Long id){

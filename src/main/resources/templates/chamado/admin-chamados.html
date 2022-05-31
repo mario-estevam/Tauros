@@ -151,7 +151,7 @@
                                             </span>
                                             <span class="text">Detalhes</span>
                                         </a>
-                                        <a th:href="@{'/admin/atender/chamado/' + ${chamado.id}}" class="btn btn-primary btn-icon-split ml-3">
+                                        <a th:if="${chamado.status == 'ABERTO'}" th:href="@{'/admin/atender/chamado/' + ${chamado.id}}" class="btn btn-primary btn-icon-split ml-3">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-plus"></i>
                                             </span>
