@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -45,26 +46,17 @@ public class UserController {
     }
 
     @GetMapping(value={"/index"})
-    public ModelAndView index(){
-        ModelAndView modelAndView = new ModelAndView();
+    public String index(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+      if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+            return "redirect:/listar/chamados-admin";
+        } else if(user != null){
+          return "redirect:/meus-chamados";
 
-        List<Chamado> chamados = chamadoService.meusChamados(user);
-        modelAndView.addObject("chamados", chamados);
-
-
-        if(user != null){
-            modelAndView.addObject("usuario2", user);
-            System.out.println(user.getRole().getRole());
-            modelAndView.setViewName("index");
-
-        }else{
-            modelAndView.addObject("userName", "Nenhum usuário logado no sistema");
-            modelAndView.setViewName("login");
+      } else{
+          return "redirect:/login";
         }
-
-        return modelAndView;
     }
 
 

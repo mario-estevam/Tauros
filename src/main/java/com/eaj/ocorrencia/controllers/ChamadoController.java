@@ -9,17 +9,20 @@ import com.eaj.ocorrencia.services.ProblemaService;
 import com.eaj.ocorrencia.services.SetorService;
 import com.eaj.ocorrencia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class ChamadoController {
@@ -54,7 +57,79 @@ public class ChamadoController {
         return modelAndView;
     }
 
-    @GetMapping(value = "admin/chamados")
+    @GetMapping("/meus-chamados")
+    public ModelAndView chamadosRequisitante(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        List<Chamado> chamados = chamadoService.meusChamados(user);
+        modelAndView.addObject("chamados", chamados);
+
+        if(user != null){
+            modelAndView.addObject("usuario2", user);
+            System.out.println(user.getRole().getRole());
+            modelAndView.setViewName("index");
+
+        }else{
+            modelAndView.addObject("userName", "Nenhum usuário logado no sistema");
+            modelAndView.setViewName("login");
+        }
+
+        return modelAndView;
+    }
+
+    @GetMapping("/listar/chamados-admin")
+    public ModelAndView chamadosAdminIndex(
+            Model model,
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size,
+            @RequestParam(value = "string", required = false, defaultValue = "ABERTO") String status ){
+        ModelAndView modelAndView = new ModelAndView();
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        modelAndView.addObject("status", status);
+        Page<Chamado> chamadosAbertos = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize),  status);
+        Page<Chamado> chamadosPendentes = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize), "ANDAMENTO");
+        model.addAttribute("chamadosAbertos", chamadosAbertos);
+        model.addAttribute("chamadosPendentes", chamadosPendentes);
+
+
+
+        int totalPagesPendentes =  chamadosAbertos.getTotalPages();
+        int totalPagesAprovadas =  chamadosPendentes.getTotalPages();
+
+        if (totalPagesPendentes > 0) {
+            List<Integer> pageNumbersPendente = IntStream.rangeClosed(1, totalPagesPendentes)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelAndView.addObject("pageNumbers", pageNumbersPendente);
+
+        }
+
+        if (totalPagesAprovadas > 0) {
+            List<Integer> pageNumbersAprovada = IntStream.rangeClosed(1, totalPagesAprovadas)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelAndView.addObject("pageNumbersAbertos", pageNumbersAprovada);
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        List<Chamado> chamados = chamadoService.meusChamados(user);
+        modelAndView.addObject("chamados", chamados);
+        modelAndView.addObject("usuario2", user);
+        Integer totalConluidos = chamadoService.totalConcluidos();
+        Integer totalEmAndamento = chamadoService.totalEmAndamento();
+        Integer totalAbertos = chamadoService.totalAbertos();
+        modelAndView.addObject("concluidos", totalConluidos);
+        modelAndView.addObject("emAndamento", totalEmAndamento);
+        modelAndView.addObject("totalAbertos",totalAbertos);
+        modelAndView.setViewName("indexAdmin");
+        return modelAndView;
+    }
+
+
+    @GetMapping(value = "/chamados")
     public ModelAndView meusChamados(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

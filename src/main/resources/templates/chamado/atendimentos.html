@@ -54,6 +54,7 @@
                                     <th>Requisitante</th>
                                     <th>Data de abertura</th>
                                     <th>Setor Requisitante</th>
+                                    <th> Ações </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -64,11 +65,10 @@
                                     <td th:text="${chamado.data}"></td>
                                     <td th:text="${chamado.userOpen.setor.nome}"></td>
                                     <td>
-                                        <a  th:href="@{'/admin/finalizar-atendimento/' + ${chamado.id}}" class="btn btn-success btn-icon-split ml-3">
-                                            <span class="icon text-white-50">
+                                        <a th:if="${chamado.status != 'CONCLUIDO'}"  th:href="@{'/admin/finalizar-atendimento/' + ${chamado.id}}" class="text-decoration-none ml-3">
+                                            <span class="icon text-success">
                                                 <i class="fas fa-check"></i>
                                             </span>
-                                            <span class="text">Finalizar atendimento</span>
                                         </a>
                                     </td>
                                 </tr>

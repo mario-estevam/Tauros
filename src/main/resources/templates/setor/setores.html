@@ -52,6 +52,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Nome</th>
+                                    <th>Ações</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -59,17 +60,15 @@
                                     <td th:text="${setor.id}"></td>
                                     <td th:text="${setor.nome}"></td>
                                     <td>
-                                        <a th:href="@{'/admin/deletar/setor/' + ${setor.id}}" class="btn btn-danger btn-icon-split">
-                                            <span class="icon text-white-50">
+                                        <a th:href="@{'/admin/deletar/setor/' + ${setor.id}}" class="text-decoration-none" >
+                                            <span class="icon text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </span>
-                                            <span class="text">Excluir</span>
                                         </a>
-                                        <a th:href="@{'/admin/editar/setor/' + ${setor.id}}" class="btn btn-primary btn-icon-split ml-3">
-                                            <span class="icon text-white-50">
+                                        <a th:href="@{'/admin/editar/setor/' + ${setor.id}}" class=" text-decoration-noneml-3">
+                                            <span class="icon text-primary">
                                                 <i class="fas fa-edit"></i>
                                             </span>
-                                            <span class="text">Editar</span>
                                         </a>
                                     </td>
                                 </tr>
