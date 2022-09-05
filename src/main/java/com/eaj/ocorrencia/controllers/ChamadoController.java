@@ -83,20 +83,20 @@ public class ChamadoController {
             Model model,
             @RequestParam("page") Optional<Integer> page,
             @RequestParam("size") Optional<Integer> size,
-            @RequestParam(value = "string", required = false, defaultValue = "ABERTO") String status ){
+            @RequestParam(value = "status", defaultValue = "ABERTO") String status){
         ModelAndView modelAndView = new ModelAndView();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
         modelAndView.addObject("status", status);
         Page<Chamado> chamadosAbertos = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize),  status);
-        Page<Chamado> chamadosPendentes = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize), "ANDAMENTO");
+//        Page<Chamado> chamadosPendentes = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize), "ANDAMENTO");
         model.addAttribute("chamadosAbertos", chamadosAbertos);
-        model.addAttribute("chamadosPendentes", chamadosPendentes);
+//        model.addAttribute("chamadosPendentes", chamadosPendentes);
 
 
 
         int totalPagesPendentes =  chamadosAbertos.getTotalPages();
-        int totalPagesAprovadas =  chamadosPendentes.getTotalPages();
+//        int totalPagesAprovadas =  chamadosPendentes.getTotalPages();
 
         if (totalPagesPendentes > 0) {
             List<Integer> pageNumbersPendente = IntStream.rangeClosed(1, totalPagesPendentes)
@@ -106,17 +106,8 @@ public class ChamadoController {
 
         }
 
-        if (totalPagesAprovadas > 0) {
-            List<Integer> pageNumbersAprovada = IntStream.rangeClosed(1, totalPagesAprovadas)
-                    .boxed()
-                    .collect(Collectors.toList());
-            modelAndView.addObject("pageNumbersAbertos", pageNumbersAprovada);
-        }
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        List<Chamado> chamados = chamadoService.meusChamados(user);
-        modelAndView.addObject("chamados", chamados);
         modelAndView.addObject("usuario2", user);
         Integer totalConluidos = chamadoService.totalConcluidos();
         Integer totalEmAndamento = chamadoService.totalEmAndamento();

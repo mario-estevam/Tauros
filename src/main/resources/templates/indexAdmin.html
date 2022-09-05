@@ -131,18 +131,19 @@
                     </div>
             <div class="m-2">
 
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" th:href="@{/listar/chamados-admin?size=5&page=1&status=ANDAMENTO}" aria-controls="home" aria-selected="true"> Abertos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="aberto-tab"  th:href="@{/listar/chamados-admin?size=5&page=1&status=ABERTO}"  aria-controls="profile" aria-selected="false">Em andamento </a>
+                    </li>
 
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item m-1">
-                            <a class="nav-link active" id="home-tab" th:href="@{/listar/chamados-admin?size=5&page=1&status=ABERTO}" data-toggle="tab"  role="tab" aria-controls="home" aria-selected="true"> Abertos
-                            </a>
-                        </li>
-                        <li class="nav-item m-1">
-                            <a class="nav-link" id="aprovada-tab"  th:href="@{/listar/chamados-admin?size=5&page=1&status=ANDAMENTO}" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Pendentes </a>
-                        </li>
-                    </ul>
-                    <div  id="myTabContent">
-                        <div class="tab-pane fade show active py-2" id="home" role="tabpanel" aria-labelledby="home-tab">
+                </ul>
+                <div class="tab-content" id="myTabContent">
+
+                    <div class="tab-pane fade show active py-2" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <table class="table table-striped display" id="table-verba-geral"
                                    data-toggle="table">
                                 <thead>
@@ -155,7 +156,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="chamado : ${chamados}">
+                                <tr th:each="chamado : ${chamadosAbertos}">
                                     <td th:text="${chamado.status}"></td>
                                     <td th:text="${chamado.problema.nome}"></td>
                                     <td th:text="${chamado.userOpen.nome}"></td>
