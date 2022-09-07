@@ -50,7 +50,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
       if(Objects.equals(user.getRole().getRole(), "ADMIN")){
-            return "redirect:/listar/chamados-admin";
+            return "redirect:/listar/chamados-admin?size=5&page=1&status=ANDAMENTO";
         } else if(user != null){
           return "redirect:/meus-chamados";
 

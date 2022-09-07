@@ -83,21 +83,14 @@ public class ChamadoController {
             Model model,
             @RequestParam("page") Optional<Integer> page,
             @RequestParam("size") Optional<Integer> size,
-            @RequestParam(value = "status", defaultValue = "ABERTO") String status){
+            @RequestParam(value = "status", defaultValue = "ANDAMENTO") String status){
         ModelAndView modelAndView = new ModelAndView();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
         modelAndView.addObject("status", status);
         Page<Chamado> chamadosAbertos = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize),  status);
-//        Page<Chamado> chamadosPendentes = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize), "ANDAMENTO");
         model.addAttribute("chamadosAbertos", chamadosAbertos);
-//        model.addAttribute("chamadosPendentes", chamadosPendentes);
-
-
-
         int totalPagesPendentes =  chamadosAbertos.getTotalPages();
-//        int totalPagesAprovadas =  chamadosPendentes.getTotalPages();
-
         if (totalPagesPendentes > 0) {
             List<Integer> pageNumbersPendente = IntStream.rangeClosed(1, totalPagesPendentes)
                     .boxed()
@@ -105,16 +98,17 @@ public class ChamadoController {
             modelAndView.addObject("pageNumbers", pageNumbersPendente);
 
         }
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
         Integer totalConluidos = chamadoService.totalConcluidos();
         Integer totalEmAndamento = chamadoService.totalEmAndamento();
+        Integer totalEmAtraso = chamadoService.totalEmAtraso();
         Integer totalAbertos = chamadoService.totalAbertos();
         modelAndView.addObject("concluidos", totalConluidos);
         modelAndView.addObject("emAndamento", totalEmAndamento);
         modelAndView.addObject("totalAbertos",totalAbertos);
+        modelAndView.addObject("totalEmAtraso", totalEmAtraso);
         modelAndView.setViewName("indexAdmin");
         return modelAndView;
     }

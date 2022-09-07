@@ -15,10 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 
@@ -35,6 +32,10 @@ public class ChamadoService {
         String date = data.format(new Date());
         chamado.setData(date);
         chamado.setStatus("ABERTO");
+        return repository.save(chamado);
+    }
+
+    public Chamado atualizarStatus(Chamado chamado){
         return repository.save(chamado);
     }
 
@@ -62,7 +63,25 @@ public class ChamadoService {
     }
 
     public List<Chamado> getAll(){
-        return  repository.findAllByDeleteIsNull();
+        List<Chamado> chamados = repository.findAllByDeleteIsNull();
+        chamados.forEach(obj -> {
+            try {
+                SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+                String date = data.format(new Date());
+                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(obj.getData());
+                long diff = date1.getTime() - date2.getTime();
+                TimeUnit time = TimeUnit.DAYS;
+                long diffrence = time.convert(diff, TimeUnit.MILLISECONDS);
+                if ( (diffrence >= 30) && (!obj.getStatus().equals("ATRASADO"))){
+                    obj.setStatus("ATRASADO");
+                    atualizarStatus(obj);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        return  chamados;
     }
 
     public List<Chamado> chamadosEmAberto(){
@@ -89,6 +108,10 @@ public class ChamadoService {
         return repository.countAllByStatusLike("ANDAMENTO");
     }
 
+    public Integer totalEmAtraso(){
+        return repository.countAllByStatusLike("ATRASADO");
+    }
+
     public Page<Chamado> findPaginated(Pageable pageable, String status){
         final List<Chamado> verbas = repository.findAllByStatus(status);
 
@@ -102,10 +125,8 @@ public class ChamadoService {
             int toIndex = Math.min(startItem + pageSize, verbas.size());
             list = verbas.subList(startItem, toIndex);
         }
-        Page<Chamado> pagesChamado
-                = new PageImpl<Chamado>(list, PageRequest.of(currentPage, pageSize), verbas.size());
 
-        return pagesChamado;
+        return new PageImpl<Chamado>(list, PageRequest.of(currentPage, pageSize), verbas.size());
     }
 
 }

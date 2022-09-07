@@ -111,8 +111,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pendentes</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            Em Atraso</div>
+                                        <div th:utext="${totalEmAtraso}"
+                                                class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -133,11 +134,11 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" th:href="@{/listar/chamados-admin?size=5&page=1&status=ANDAMENTO}" aria-controls="home" aria-selected="true"> Abertos
+                        <a class="nav-link active" id="home-tab" th:href="@{/listar/chamados-admin?size=5&page=1&status=ANDAMENTO}" aria-controls="home" aria-selected="true"> Em Andamento
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="aberto-tab"  th:href="@{/listar/chamados-admin?size=5&page=1&status=ABERTO}"  aria-controls="profile" aria-selected="false">Em andamento </a>
+                        <a class="nav-link" id="aberto-tab"  th:href="@{/listar/chamados-admin?size=5&page=1&status=ABERTO}"  aria-controls="profile" aria-selected="false">Abertos</a>
                     </li>
 
                 </ul>
