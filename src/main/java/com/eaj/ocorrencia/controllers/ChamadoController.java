@@ -115,16 +115,36 @@ public class ChamadoController {
 
 
     @GetMapping(value = "/chamados")
-    public ModelAndView meusChamados(){
+    public ModelAndView chamadosAdmin( Model model,
+                                      @RequestParam("page") Optional<Integer> page,
+                                      @RequestParam("size") Optional<Integer> size,
+                                      @RequestParam(value = "status", defaultValue = "ANDAMENTO") String status){
         ModelAndView modelAndView = new ModelAndView();
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        modelAndView.addObject("status", status);
+        Page<Chamado> chamadosAbertos = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize),  status);
+        model.addAttribute("chamadosAbertos", chamadosAbertos);
+        int totalPagesPendentes =  chamadosAbertos.getTotalPages();
+        if (totalPagesPendentes > 0) {
+            List<Integer> pageNumbersPendente = IntStream.rangeClosed(1, totalPagesPendentes)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelAndView.addObject("pageNumbers", pageNumbersPendente);
+
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
-
-        List<Chamado> chamados = chamadoService.getAll();
-        modelAndView.addObject("chamados", chamados);
-
-
+        Integer totalConluidos = chamadoService.totalConcluidos();
+        Integer totalEmAndamento = chamadoService.totalEmAndamento();
+        Integer totalEmAtraso = chamadoService.totalEmAtraso();
+        Integer totalAbertos = chamadoService.totalAbertos();
+        modelAndView.addObject("concluidos", totalConluidos);
+        modelAndView.addObject("emAndamento", totalEmAndamento);
+        modelAndView.addObject("totalAbertos",totalAbertos);
+        modelAndView.addObject("totalEmAtraso", totalEmAtraso);
         modelAndView.setViewName("chamado/admin-chamados");
         return modelAndView;
     }

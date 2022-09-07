@@ -3,6 +3,7 @@ package com.eaj.ocorrencia.services;
 import com.eaj.ocorrencia.models.Chamado;
 import com.eaj.ocorrencia.models.User;
 import com.eaj.ocorrencia.repositories.ChamadoRepository;
+import com.eaj.ocorrencia.util.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -10,11 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -24,29 +22,30 @@ public class ChamadoService {
 
     ChamadoRepository repository;
 
+
     @Autowired
     private void setChamadoRepository(ChamadoRepository repository){ this.repository = repository; }
 
     public Chamado insert(Chamado chamado){
-        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat data = new SimpleDateFormat(Constantes.FORMATADATA);
         String date = data.format(new Date());
         chamado.setData(date);
-        chamado.setStatus("ABERTO");
+        chamado.setStatus(Constantes.STATUS_ABERTO);
         return repository.save(chamado);
     }
 
-    public Chamado atualizarStatus(Chamado chamado){
-        return repository.save(chamado);
+    public void atualizarStatus(Chamado chamado){
+        repository.save(chamado);
     }
 
     public Chamado update(Chamado chamado){
-        chamado.setStatus("ANDAMENTO");
+        chamado.setStatus(Constantes.STATUS_ANDAMENTO);
         return repository.save(chamado);
     }
 
 
     public Chamado finalizar(Chamado chamado){
-        chamado.setStatus("CONCLUIDO");
+        chamado.setStatus(Constantes.STATUS_CONCLUIDO);
         return repository.save(chamado);
     }
 
@@ -66,15 +65,15 @@ public class ChamadoService {
         List<Chamado> chamados = repository.findAllByDeleteIsNull();
         chamados.forEach(obj -> {
             try {
-                SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat data = new SimpleDateFormat(Constantes.FORMATADATA);
                 String date = data.format(new Date());
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(obj.getData());
+                Date date1 = new SimpleDateFormat(Constantes.FORMATADATA).parse(date);
+                Date date2 = new SimpleDateFormat(Constantes.FORMATADATA).parse(obj.getData());
                 long diff = date1.getTime() - date2.getTime();
                 TimeUnit time = TimeUnit.DAYS;
                 long diffrence = time.convert(diff, TimeUnit.MILLISECONDS);
-                if ( (diffrence >= 30) && (!obj.getStatus().equals("ATRASADO"))){
-                    obj.setStatus("ATRASADO");
+                if ( (diffrence >= 30) && (!obj.getStatus().equals(Constantes.STATUS_ATRASADO))){
+                    obj.setStatus(Constantes.STATUS_ATRASADO);
                     atualizarStatus(obj);
                 }
             } catch (ParseException e) {
@@ -97,19 +96,19 @@ public class ChamadoService {
     }
 
     public Integer totalConcluidos(){
-        return repository.countAllByStatusLike("CONCLUIDO");
+        return repository.countAllByStatusLike(Constantes.STATUS_CONCLUIDO);
     }
 
     public Integer totalAbertos(){
-        return repository.countAllByStatusLike("ABERTO");
+        return repository.countAllByStatusLike(Constantes.STATUS_ABERTO);
     }
 
     public Integer totalEmAndamento(){
-        return repository.countAllByStatusLike("ANDAMENTO");
+        return repository.countAllByStatusLike(Constantes.STATUS_ANDAMENTO);
     }
 
     public Integer totalEmAtraso(){
-        return repository.countAllByStatusLike("ATRASADO");
+        return repository.countAllByStatusLike(Constantes.STATUS_ATRASADO);
     }
 
     public Page<Chamado> findPaginated(Pageable pageable, String status){
@@ -126,7 +125,7 @@ public class ChamadoService {
             list = verbas.subList(startItem, toIndex);
         }
 
-        return new PageImpl<Chamado>(list, PageRequest.of(currentPage, pageSize), verbas.size());
+        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), verbas.size());
     }
 
 }

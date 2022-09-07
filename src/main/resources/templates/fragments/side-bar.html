@@ -28,7 +28,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
 
-        <a th:if="${usuario2.role.role == 'ADMIN'}" class="nav-link " href="/chamados" >
+        <a th:if="${usuario2.role.role == 'ADMIN'}" class="nav-link " href="/chamados?size=5&page=1&status=ANDAMENTO" >
             <i class="fas fa-fw fa-comment"></i>
             <span>Chamados</span>
         </a>

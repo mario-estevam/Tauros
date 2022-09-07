@@ -42,48 +42,118 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Tabela de chamados</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Status</th>
-                                    <th>Problema</th>
-                                    <th>Requisitante</th>
-                                    <th>Data de abertura</th>
-                                    <th>Setor Requisitante</th>
-                                    <th>Ações</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="chamado : ${chamados}">
-                                    <td th:text="${chamado.status}"></td>
-                                    <td th:text="${chamado.problema.nome}"></td>
-                                    <td th:text="${chamado.userOpen.nome}"></td>
-                                    <td th:text="${chamado.data}"></td>
-                                    <td th:text="${chamado.userOpen.setor.nome}"></td>
-                                    <td>
-                                        <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                    <div class="m-2">
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" th:href="@{/chamados?size=5&page=1&status=ANDAMENTO}" aria-controls="home" aria-selected="true"> Em Andamento
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="aberto-tab"  th:href="@{/chamados?size=5&page=1&status=ABERTO}"  aria-controls="profile" aria-selected="false">Abertos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="atrasado-tab"  th:href="@{/chamados?size=5&page=1&status=ATRASADO}"  aria-controls="profile" aria-selected="false">Em Atraso</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="concluido-tab"  th:href="@{/chamados?size=5&page=1&status=CONCLUIDO}"  aria-controls="profile" aria-selected="false">Concluidos</a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+
+                            <div class="tab-pane fade show active py-2" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <table th:if="${status != 'ATRASADO'}" class="table table-striped display" id="table-verba-geral"
+                                       data-toggle="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Problema</th>
+                                        <th>Requisitante</th>
+                                        <th>Data de abertura</th>
+                                        <th>Setor Requisitante</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="chamado : ${chamadosAbertos}">
+                                        <td th:text="${chamado.status}"></td>
+                                        <td th:text="${chamado.problema.nome}"></td>
+                                        <td th:text="${chamado.userOpen.nome}"></td>
+                                        <td th:text="${chamado.data}"></td>
+                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td>
+                                            <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-primary">
                                                 <i class="fas fa-search"></i>
                                             </span>
-                                        </a>
-                                        <a th:if="${chamado.status == 'ABERTO'}" th:href="@{'/admin/atender/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                                            </a>
+                                            <a th:if="${chamado.status == 'ABERTO'}" th:href="@{'/admin/atender/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-success">
                                                 <i class="fas fa-tools"></i>
                                             </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                                <table th:unless="${status != 'ATRASADO'}" class="table table-striped display" id="table-verba-geral-atrasados"
+                                       data-toggle="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Problema</th>
+                                        <th>Operador</th>
+                                        <th>Data de abertura</th>
+                                        <th>Setor Requisitante</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="chamado : ${chamadosAbertos}">
+                                        <td th:text="${chamado.status}"></td>
+                                        <td th:text="${chamado.problema.nome}"></td>
+                                        <td th:text="${chamado.userClose.nome}"></td>
+                                        <td th:text="${chamado.data}"></td>
+                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td>
+                                            <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                                            <span class="icon text-primary">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                                <nav th:if="${chamadosAbertos.totalPages > 0}" aria-label="Page navigation example" >
+                                    <ul class="pagination">
+                                        <li class="page-item" th:classappend="${chamadosAbertos.getPageable().getPageNumber() == 0} ? disabled">
+                                            <a aria-label="Página anterior" class="page-link"
+                                               th:href="@{/listar/chamados-admin(size=${chamadosAbertos.size}, page=${chamadosAbertos.getPageable().getPageNumber()}, status=${status})}">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"  th:each="pageNumber : ${pageNumbers}"
+                                            th:classappend="${chamadosAbertos.getPageable().getPageNumber()==pageNumberStat.index} ? active">
+                                            <a th:href="@{/listar/chamados-admin(size=${chamadosAbertos.size}, page=${pageNumber},status=${status} )}" class="page-link"
+                                               th:text="${pageNumber}"
+                                            ></a>
+                                        </li>
+
+                                        <li class="page-item" th:classappend="${chamadosAbertos.getPageable().getPageNumber()+1 == pageNumbers.size()} ? disabled">
+                                            <a aria-label="Próxima página" class="page-link"
+                                               th:href="@{/listar/chamados-admin(size=${chamadosAbertos.size}, page=${chamadosAbertos.getPageable().getPageNumber()+2}, status=${status})}">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-            </div>
-
-        </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->

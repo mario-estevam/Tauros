@@ -1,7 +1,9 @@
 const params =  window.location.search.substring(1).split('&');
 const status = {
     'status=ANDAMENTO': '#home-tab',
-    'status=ABERTO': '#aberto-tab'
+    'status=ABERTO': '#aberto-tab',
+    'status=ATRASADO': '#atrasado-tab',
+    'status=CONCLUIDO': '#concluido-tab'
 }
 
 
