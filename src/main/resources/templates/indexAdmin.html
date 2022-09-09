@@ -3,9 +3,11 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head-page :: head"></head>
-
+<head th:replace="fragments/head-page :: head">
 </head>
+
+
+
 
 <body id="page-top">
 
@@ -129,6 +131,9 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Tabela de chamados</h6>
+                        <hr/>
+                        <a href="/cadastro/chamado" class="btn btn-outline-primary"> Abrir Chamado </a>
+                        <span th:if="${#request.getParameter('msg')} !=null" class="alert alert-info par position-relative" role="alert" th:text="${#request.getParameter('msg')}"></span>
                     </div>
             <div class="m-2">
 
@@ -145,7 +150,7 @@
                 <div class="tab-content" id="myTabContent">
 
                     <div class="tab-pane fade show active py-2" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <table class="table table-striped display" id="table-verba-geral"
+                            <table class="table table-striped display" id="table_id"
                                    data-toggle="table">
                                 <thead>
                                 <tr>
@@ -219,6 +224,9 @@
 </div>
     </div>
 </div>
+
+
+
 <th:block th:replace="fragments/head-page :: body-final"></th:block>
 
 
