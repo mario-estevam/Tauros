@@ -87,12 +87,12 @@ public class ChamadoService {
         return repository.findAllByUserCloseIsNull();
     }
 
-    public List<Chamado> meusChamados(User user){
-        return repository.getByUserOpenAndDeleteIsNull(user);
+    public List<Chamado> meusChamados(User user,String status){
+        return repository.getByUserOpenAndDeleteIsNullAndStatus(user,status);
     }
 
-    public List<Chamado> meusAtendimentos(User user){
-        return repository.findAllByUserCloseAndDeleteIsNull(user);
+    public List<Chamado> meusAtendimentos(User user, String status){
+        return repository.findAllByUserCloseAndDeleteIsNullAndStatus(user, status);
     }
 
     public Integer totalConcluidos(){

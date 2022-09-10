@@ -44,37 +44,88 @@
                         <span th:if="${#request.getParameter('msg')} !=null" class="alert alert-info par position-relative" role="alert" th:text="${#request.getParameter('msg')}"></span>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="table_id" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Status</th>
-                                    <th>Problema</th>
-                                    <th>Requisitante</th>
-                                    <th>Data de abertura</th>
-                                    <th>Setor Requisitante</th>
-                                    <th> Ações </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="chamado : ${chamados}">
-                                    <td th:text="${chamado.status}"></td>
-                                    <td th:text="${chamado.problema.nome}"></td>
-                                    <td th:text="${chamado.userOpen.nome}"></td>
-                                    <td th:text="${chamado.data}"></td>
-                                    <td th:text="${chamado.userOpen.setor.nome}"></td>
-                                    <td>
-                                        <a th:if="${chamado.status != 'CONCLUIDO'}"  th:href="@{'/admin/finalizar-atendimento/' + ${chamado.id}}" class="text-decoration-none ml-3">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Em Andamento</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Em Atraso</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active m-3" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <table class="table table-striped display" id="table_id" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Problema</th>
+                                        <th>Requisitante</th>
+                                        <th>Data de abertura</th>
+                                        <th>Setor Requisitante</th>
+                                        <th> Ações </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="chamado : ${chamadosAndamento}">
+                                        <td th:text="${chamado.status}"></td>
+                                        <td th:text="${chamado.problema.nome}"></td>
+                                        <td th:text="${chamado.userOpen.nome}"></td>
+                                        <td th:text="${chamado.data}"></td>
+                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td>
+                                            <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                                            <span class="icon text-primary">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                            </a>
+                                            <a th:if="${chamado.status != 'CONCLUIDO'}"  th:href="@{'/admin/finalizar-atendimento/' + ${chamado.id}}" class="text-decoration-none ml-3">
                                             <span class="icon text-success">
                                                 <i class="fas fa-check"></i>
                                             </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade m-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <table class="table table-striped display" id="table_id2" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Problema</th>
+                                        <th>Requisitante</th>
+                                        <th>Data de abertura</th>
+                                        <th>Setor Requisitante</th>
+                                        <th> Ações </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="chamado : ${chamadosAtrasados}">
+                                        <td th:text="${chamado.status}"></td>
+                                        <td th:text="${chamado.problema.nome}"></td>
+                                        <td th:text="${chamado.userOpen.nome}"></td>
+                                        <td th:text="${chamado.data}"></td>
+                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td>
+                                            <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                                            <span class="icon text-primary">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                            </a>
+                                            <a th:if="${chamado.status != 'CONCLUIDO'}"  th:href="@{'/admin/finalizar-atendimento/' + ${chamado.id}}" class="text-decoration-none ml-3">
+                                            <span class="icon text-success">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-                    </div>
                 </div>
 
             </div>

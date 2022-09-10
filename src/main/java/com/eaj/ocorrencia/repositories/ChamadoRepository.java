@@ -10,8 +10,8 @@ import java.util.List;
 public interface ChamadoRepository extends JpaRepository<Chamado,Long> {
     List<Chamado> findAllByDeleteIsNull();
     List<Chamado> findAllByUserCloseIsNull();
-    List<Chamado> findAllByUserCloseAndDeleteIsNull(User user);
-    List<Chamado> getByUserOpenAndDeleteIsNull(User user);
+    List<Chamado> findAllByUserCloseAndDeleteIsNullAndStatus(User user,String status);
+    List<Chamado> getByUserOpenAndDeleteIsNullAndStatus(User user,String status);
     Integer countAllByStatusLike(String status);
     List<Chamado> findAllByStatus(String status);
 }

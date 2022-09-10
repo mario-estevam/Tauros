@@ -63,12 +63,14 @@ public class ChamadoController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        List<Chamado> chamados = chamadoService.meusChamados(user);
-        modelAndView.addObject("chamados", chamados);
-
+        List<Chamado> chamadosAbertos = chamadoService.meusChamados(user,Constantes.STATUS_ABERTO);
+        List<Chamado> chamadosEmAndamento = chamadoService.meusChamados(user,Constantes.STATUS_ANDAMENTO);
+        List<Chamado> chamadosAtrasados = chamadoService.meusChamados(user,Constantes.STATUS_ATRASADO);
+        modelAndView.addObject("chamadosAbertos", chamadosAbertos);
+        modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosAtrasados", chamadosAtrasados);
         if(user != null){
             modelAndView.addObject("usuario2", user);
-            System.out.println(user.getRole().getRole());
             modelAndView.setViewName("index");
 
         }else{
@@ -133,11 +135,10 @@ public class ChamadoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
-
-        List<Chamado> chamados = chamadoService.meusAtendimentos(user);
-        modelAndView.addObject("chamados", chamados);
-
-
+        List<Chamado> chamadosAndamento = chamadoService.meusAtendimentos(user,Constantes.STATUS_ANDAMENTO);
+        List<Chamado> chamadosAtrasados = chamadoService.meusAtendimentos(user,Constantes.STATUS_ATRASADO);
+        modelAndView.addObject("chamadosAndamento", chamadosAndamento);
+        modelAndView.addObject("chamadosAtrasados", chamadosAtrasados);
         modelAndView.setViewName("chamado/atendimentos");
         return modelAndView;
     }
