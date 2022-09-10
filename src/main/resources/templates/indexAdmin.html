@@ -137,19 +137,17 @@
                     </div>
             <div class="m-2">
 
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" th:href="@{/listar/chamados-admin?size=5&page=1&status=ANDAMENTO}" aria-controls="home" aria-selected="true"> Em Andamento
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="aberto-tab"  th:href="@{/listar/chamados-admin?size=5&page=1&status=ABERTO}"  aria-controls="profile" aria-selected="false">Abertos</a>
-                    </li>
-
-                </ul>
-                <div class="tab-content" id="myTabContent">
-
-                    <div class="tab-pane fade show active py-2" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Abertos</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Em Andamento</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active m-3" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <table class="table table-striped display" id="table_id"
                                    data-toggle="table">
                                 <thead>
@@ -162,7 +160,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="chamado : ${chamadosAbertos}">
+                                <tr th:each="chamado : ${chamadosEmAberto}">
                                     <td th:text="${chamado.status}"></td>
                                     <td th:text="${chamado.problema.nome}"></td>
                                     <td th:text="${chamado.userOpen.nome}"></td>
@@ -172,31 +170,36 @@
                                 </tbody>
 
                             </table>
-                            <nav th:if="${chamadosAbertos.totalPages > 0}" aria-label="Page navigation example" >
-                                <ul class="pagination">
-                                    <li class="page-item" th:classappend="${chamadosAbertos.getPageable().getPageNumber() == 0} ? disabled">
-                                        <a aria-label="Página anterior" class="page-link"
-                                           th:href="@{/listar/chamados-admin(size=${chamadosAbertos.size}, page=${chamadosAbertos.getPageable().getPageNumber()}, status=${status})}">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"  th:each="pageNumber : ${pageNumbers}"
-                                        th:classappend="${chamadosAbertos.getPageable().getPageNumber()==pageNumberStat.index} ? active">
-                                        <a th:href="@{/listar/chamados-admin(size=${chamadosAbertos.size}, page=${pageNumber},status=${status} )}" class="page-link"
-                                           th:text="${pageNumber}"
-                                        ></a>
-                                    </li>
-
-                                    <li class="page-item" th:classappend="${chamadosAbertos.getPageable().getPageNumber()+1 == pageNumbers.size()} ? disabled">
-                                        <a aria-label="Próxima página" class="page-link"
-                                           th:href="@{/listar/chamados-admin(size=${chamadosAbertos.size}, page=${chamadosAbertos.getPageable().getPageNumber()+2}, status=${status})}">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
+                        <div class="tab-pane fade m-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <table class="table table-striped display" id="table_id2"
+                                   data-toggle="table">
+                                <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Problema</th>
+                                    <th>Requisitante</th>
+                                    <th>Data de abertura</th>
+                                    <th>Setor Requisitante</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="chamado : ${chamadosEmAndamento}">
+                                    <td th:text="${chamado.status}"></td>
+                                    <td th:text="${chamado.problema.nome}"></td>
+                                    <td th:text="${chamado.userOpen.nome}"></td>
+                                    <td th:text="${chamado.data}"></td>
+                                    <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
                     </div>
+                </div>
+
+
             </div>
         <!-- End of Main Content -->
 

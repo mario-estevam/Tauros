@@ -111,6 +111,10 @@ public class ChamadoService {
         return repository.countAllByStatusLike(Constantes.STATUS_ATRASADO);
     }
 
+    public List<Chamado> findByStatus(String status){
+        return repository.findAllByStatus(status);
+    }
+
     public Page<Chamado> findPaginated(Pageable pageable, String status){
         final List<Chamado> verbas = repository.findAllByStatus(status);
 

@@ -8,6 +8,7 @@ import com.eaj.ocorrencia.services.ChamadoService;
 import com.eaj.ocorrencia.services.ProblemaService;
 import com.eaj.ocorrencia.services.SetorService;
 import com.eaj.ocorrencia.services.UserService;
+import com.eaj.ocorrencia.util.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -79,25 +80,8 @@ public class ChamadoController {
     }
 
     @GetMapping("/listar/chamados-admin")
-    public ModelAndView chamadosAdminIndex(
-            Model model,
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size,
-            @RequestParam(value = "status", defaultValue = "ANDAMENTO") String status){
+    public ModelAndView chamadosAdminIndex(){
         ModelAndView modelAndView = new ModelAndView();
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        modelAndView.addObject("status", status);
-        Page<Chamado> chamadosAbertos = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize),  status);
-        model.addAttribute("chamadosAbertos", chamadosAbertos);
-        int totalPagesPendentes =  chamadosAbertos.getTotalPages();
-        if (totalPagesPendentes > 0) {
-            List<Integer> pageNumbersPendente = IntStream.rangeClosed(1, totalPagesPendentes)
-                    .boxed()
-                    .collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbersPendente);
-
-        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
@@ -105,6 +89,10 @@ public class ChamadoController {
         Integer totalEmAndamento = chamadoService.totalEmAndamento();
         Integer totalEmAtraso = chamadoService.totalEmAtraso();
         Integer totalAbertos = chamadoService.totalAbertos();
+        List<Chamado> chamadosEmAndamento = chamadoService.findByStatus(Constantes.STATUS_ANDAMENTO);
+        List<Chamado> chamadosEmAberto = chamadoService.findByStatus(Constantes.STATUS_ABERTO);
+        modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
         modelAndView.addObject("concluidos", totalConluidos);
         modelAndView.addObject("emAndamento", totalEmAndamento);
         modelAndView.addObject("totalAbertos",totalAbertos);
@@ -115,25 +103,8 @@ public class ChamadoController {
 
 
     @GetMapping(value = "/chamados")
-    public ModelAndView chamadosAdmin( Model model,
-                                      @RequestParam("page") Optional<Integer> page,
-                                      @RequestParam("size") Optional<Integer> size,
-                                      @RequestParam(value = "status", defaultValue = "ANDAMENTO") String status){
+    public ModelAndView chamadosAdmin(){
         ModelAndView modelAndView = new ModelAndView();
-
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        modelAndView.addObject("status", status);
-        Page<Chamado> chamadosAbertos = chamadoService.findPaginated(PageRequest.of(currentPage - 1, pageSize),  status);
-        model.addAttribute("chamadosAbertos", chamadosAbertos);
-        int totalPagesPendentes =  chamadosAbertos.getTotalPages();
-        if (totalPagesPendentes > 0) {
-            List<Integer> pageNumbersPendente = IntStream.rangeClosed(1, totalPagesPendentes)
-                    .boxed()
-                    .collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbersPendente);
-
-        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
@@ -141,6 +112,12 @@ public class ChamadoController {
         Integer totalEmAndamento = chamadoService.totalEmAndamento();
         Integer totalEmAtraso = chamadoService.totalEmAtraso();
         Integer totalAbertos = chamadoService.totalAbertos();
+        List<Chamado> chamadosEmAndamento = chamadoService.findByStatus(Constantes.STATUS_ANDAMENTO);
+        List<Chamado> chamadosEmAberto = chamadoService.findByStatus(Constantes.STATUS_ABERTO);
+        List<Chamado> chamadosEmAtraso = chamadoService.findByStatus(Constantes.STATUS_ATRASADO);
+        modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
+        modelAndView.addObject("chamadosEmAtraso", chamadosEmAtraso);
         modelAndView.addObject("concluidos", totalConluidos);
         modelAndView.addObject("emAndamento", totalEmAndamento);
         modelAndView.addObject("totalAbertos",totalAbertos);
@@ -211,7 +188,7 @@ public class ChamadoController {
         User user = userService.findUserByUserName(auth.getName());
         chamado.setUserClose(user);
         chamadoService.update(chamado);
-        return "redirect:/admin/chamados";
+        return "redirect:/chamados";
     }
 
 

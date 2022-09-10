@@ -1,16 +1,27 @@
-const params =  window.location.search.substring(1).split('&');
-const status = {
-    'status=ANDAMENTO': '#home-tab',
-    'status=ABERTO': '#aberto-tab',
-    'status=ATRASADO': '#atrasado-tab',
-    'status=CONCLUIDO': '#concluido-tab'
-}
-
-
-const tabItem1 = document.querySelector(status[params[2]]);
-
-const AllTabItem = document.querySelectorAll('#myTab a');
-AllTabItem.forEach((item) => item.classList.remove('active'));
-tabItem1.classList.add('active')
-
-
+$(document).ready(function () {
+    $('#table_id').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
+        },
+        "searching": true,
+        paging: true,
+    });
+});
+$(document).ready(function () {
+    $('#table_id2').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
+        },
+        "searching": true,
+        paging: true,
+    });
+});
+$(document).ready(function () {
+    $('#table_id3').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
+        },
+        "searching": true,
+        paging: true,
+    });
+});
