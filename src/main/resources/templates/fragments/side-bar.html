@@ -1,6 +1,6 @@
 
 <!-- Sidebar -->
-<ul  th:fragment="fragment-bar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul  th:fragment="fragment-bar" th:if="${usuario2.role.role == 'ADMIN'}" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
 
@@ -28,7 +28,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
 
-        <a th:if="${usuario2.role.role == 'ADMIN'}" class="nav-link " href="/chamados?size=5&page=1&status=ANDAMENTO" >
+        <a class="nav-link " href="/chamados?size=5&page=1&status=ANDAMENTO" >
             <i class="fas fa-fw fa-comment"></i>
             <span>Chamados</span>
         </a>

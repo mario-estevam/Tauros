@@ -61,6 +61,10 @@ public class ChamadoService {
         return repository.getById(id);
     }
 
+    public Chamado findByUsuarioAndId(User user, Long id){
+        return repository.findByUserOpenAndId(user, id);
+    }
+
     public List<Chamado> getAll(){
         List<Chamado> chamados = repository.findAllByDeleteIsNull();
         chamados.forEach(obj -> {

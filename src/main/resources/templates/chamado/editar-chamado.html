@@ -41,40 +41,46 @@
                                 <div class="col-lg-12">
                                     <div class="p-5">
                                         <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">Cadastrar problema</h1>
+                                            <h1 class="h4 text-gray-900 mb-4">Editar Chamado</h1>
+                                            <span class="text-danger" th:utext="${errorMsg}"> </span>
                                             <span class="text-success" th:utext="${successMessage}"> </span>
                                         </div>
-                                        <form class="user" th:action="@{/admin/cadastro/problema}"
+                                        <form th:if="${errorMsg == null}" class="user" th:action="@{/editar/chamado}"
                                               method="post" autocomplete="off" role="form">
                                             <div class="form-group row">
-                                                <div class="col-sm-12 mb-3 mb-sm-0">
-                                                    <label class="form-label required">Nome do problema</label>
-                                                    <input th:field="${problema.nome}" type="text" class="form-control "
-                                                           placeholder="Nome do problema">
-                                                </div>
                                                 <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                    <input hidden th:field="${chamado.id}">
                                                     <label class="form-label required">Descricao</label>
-                                                    <input th:field="${problema.descricao}" type="text" class="form-control "
-                                                           placeholder="Descricao do problema">
+                                                    <input th:field="${chamado.descricao}" type="text" class="form-control"
+                                                           placeholder="Descricao do chamado">
                                                 </div>
                                                 <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
                                                     <label class="form-label required">Setor</label>
-                                                    <select  class="custom-select" id="setor" th:field="${problema.setor}" required>
+                                                    <select  class="custom-select" id="setor" th:field="${chamado.setor}" required>
                                                         <option th:each="setor:${setores}" th:text="${setor.nome}"  th:value="${setor.id}"></option>
                                                     </select>
                                                     <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
                                                 </div>
+                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                    <label class="form-label required">Problema</label>
+                                                    <select  class="custom-select" id="problema" th:field="${chamado.problema}" required>
+                                                        <option th:each="problema:${problemas}" th:text="${problema.nome}"  th:value="${problema.id}"></option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
+                                                </div>
+
                                             </div>
                                             <div class="d-flex">
                                                 <button type="submit" class="btn btn-primary  mr-2">
                                                     Cadastrar
                                                 </button>
-                                                <a class="btn btn-info  mr-2" href="/admin/listar/problemas">
-                                                    Voltar
-                                                </a>
 
                                             </div>
+
                                         </form>
+
+
+
 
                                     </div>
                                 </div>

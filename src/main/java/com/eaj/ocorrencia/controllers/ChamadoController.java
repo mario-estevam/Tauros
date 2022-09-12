@@ -145,7 +145,7 @@ public class ChamadoController {
 
 
     @GetMapping(value = "/cadastro/chamado")
-    public ModelAndView createSetor(){
+    public ModelAndView criaChamado(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
@@ -165,8 +165,55 @@ public class ChamadoController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/editar/chamado/{id}")
+    public ModelAndView updateChamado(@PathVariable("id") Long id){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("usuario2", user);
+        List<Setor> setores = setorService.getAll();
+        modelAndView.addObject("setores", setores);
+        List<Problema> problemas = problemaService.getAll();
+        modelAndView.addObject("problemas", problemas);
+        if(user.getRole().getRole().equals("ADMIN")){
+            Chamado chamado = chamadoService.findById(id);
+            modelAndView.addObject("chamado", chamado);
+        }else{
+            Chamado chamado = chamadoService.findByUsuarioAndId(user, id);
+            if(chamado!=null){
+                modelAndView.addObject("chamado", chamado);
+            }else{
+                Chamado chamado1 = new Chamado();
+                modelAndView.addObject("chamado", chamado1);
+                modelAndView.addObject("errorMsg", "Você não pode editar esse chamado!");
+            }
+        }
+
+        modelAndView.setViewName("chamado/editar-chamado");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/editar/chamado")
+    public ModelAndView createNewSetor(Chamado chamado){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("usuario2", user);
+        chamadoService.insert(chamado);
+        List<Setor> setores = setorService.getAll();
+        modelAndView.addObject("setores", setores);
+
+        List<Problema> problemas = problemaService.getAll();
+        modelAndView.addObject("problemas", problemas);
+        modelAndView.addObject("successMessage", "Setor atualizado com sucesso");
+        Chamado chamado1 = new Chamado();
+        modelAndView.addObject("chamado", chamado1);
+        modelAndView.setViewName("chamado/editar-chamado");
+        return modelAndView;
+    }
+
     @PostMapping(value = "/cadastro/chamado")
-    public ModelAndView createNewProblema(Chamado chamado){
+    public ModelAndView criarNovoCadastro(Chamado chamado){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());

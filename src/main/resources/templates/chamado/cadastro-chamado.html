@@ -49,7 +49,7 @@
                                             <div class="form-group row">
                                                 <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
                                                     <label class="form-label required">Descricao</label>
-                                                    <input th:field="${chamado.descricao}" type="text" class="form-control form-control-user"
+                                                    <input th:field="${chamado.descricao}" type="text" class="form-control"
                                                            placeholder="Descricao do chamado">
                                                 </div>
                                                 <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
@@ -68,10 +68,22 @@
                                                 </div>
 
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                Cadastrar
-                                            </button>
+                                            <div class="d-flex">
+                                                <button type="submit" class="btn btn-primary  mr-2">
+                                                    Cadastrar
+                                                </button>
+                                                <a class="btn btn-info  mr-2" th:if="${usuario2.role.role == 'ADMIN'}" href="/chamados">
+                                                    Voltar
+                                                </a>
+                                                <a class="btn btn-info  mr-2" th:unless="${usuario2.role.role == 'ADMIN'}" href="/meus-chamados">
+                                                    Voltar
+                                                </a>
+                                            </div>
+
                                         </form>
+
+
+
 
                                     </div>
                                 </div>
