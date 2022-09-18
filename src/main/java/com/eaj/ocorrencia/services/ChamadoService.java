@@ -1,6 +1,7 @@
 package com.eaj.ocorrencia.services;
 
 import com.eaj.ocorrencia.models.Chamado;
+import com.eaj.ocorrencia.models.Setor;
 import com.eaj.ocorrencia.models.User;
 import com.eaj.ocorrencia.repositories.ChamadoRepository;
 import com.eaj.ocorrencia.util.Constantes;
@@ -103,6 +104,10 @@ public class ChamadoService {
         return repository.countAllByStatusLike(Constantes.STATUS_CONCLUIDO);
     }
 
+    public Integer totalChamadosByStatusAndUser(String status, User user){
+        return repository.countAllByStatusLikeAndUserClose(status,user);
+    }
+
     public Integer totalAbertos(){
         return repository.countAllByStatusLike(Constantes.STATUS_ABERTO);
     }
@@ -119,21 +124,12 @@ public class ChamadoService {
         return repository.findAllByStatus(status);
     }
 
-    public Page<Chamado> findPaginated(Pageable pageable, String status){
-        final List<Chamado> verbas = repository.findAllByStatus(status);
+    public List<Chamado> findByStatusAndSetor(String status, Setor setor){
+        return repository.findAllByStatusAndSetor(status,setor);
+    }
 
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Chamado> list;
-        if(verbas.size() < startItem){
-            list = Collections.emptyList();
-        }else{
-            int toIndex = Math.min(startItem + pageSize, verbas.size());
-            list = verbas.subList(startItem, toIndex);
-        }
-
-        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), verbas.size());
+    public List<Chamado> findByStatusAndUser(String status, User user){
+        return repository.findAllByStatusAndUserClose(status,user);
     }
 
 }

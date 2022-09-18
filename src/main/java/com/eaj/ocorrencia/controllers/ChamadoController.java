@@ -10,20 +10,14 @@ import com.eaj.ocorrencia.services.SetorService;
 import com.eaj.ocorrencia.services.UserService;
 import com.eaj.ocorrencia.util.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Objects;
 
 @Controller
 public class ChamadoController {
@@ -94,12 +88,36 @@ public class ChamadoController {
         List<Chamado> chamadosEmAndamento = chamadoService.findByStatus(Constantes.STATUS_ANDAMENTO);
         List<Chamado> chamadosEmAberto = chamadoService.findByStatus(Constantes.STATUS_ABERTO);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
-        modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
+        getModAndViewsForChamados(modelAndView, totalConluidos, totalEmAndamento, totalEmAtraso, totalAbertos, chamadosEmAberto, "chamadosEmAberto");
+        modelAndView.setViewName("indexAdmin");
+        return modelAndView;
+    }
+
+    private void getModAndViewsForChamados(ModelAndView modelAndView, Integer totalConluidos, Integer totalEmAndamento, Integer totalEmAtraso, Integer totalAbertos, List<Chamado> chamadosEmAberto, String chamadosEmAberto2) {
+        modelAndView.addObject(chamadosEmAberto2, chamadosEmAberto);
         modelAndView.addObject("concluidos", totalConluidos);
         modelAndView.addObject("emAndamento", totalEmAndamento);
-        modelAndView.addObject("totalAbertos",totalAbertos);
+        modelAndView.addObject("totalAbertos", totalAbertos);
         modelAndView.addObject("totalEmAtraso", totalEmAtraso);
-        modelAndView.setViewName("indexAdmin");
+    }
+
+    @GetMapping("/listar/chamados-operador")
+    public ModelAndView chamadosOperadorIndex(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("usuario2", user);
+        Integer totalConluidos = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_CONCLUIDO, user);
+        Integer totalEmAndamento = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ANDAMENTO, user);
+        Integer totalEmAtraso = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ATRASADO, user);
+        Integer totalAbertos = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ABERTO, user);
+        List<Chamado> chamadosEmAndamento = chamadoService.findByStatusAndUser(Constantes.STATUS_ANDAMENTO, user);
+        List<Chamado> chamadosEmAberto = chamadoService.findByStatusAndSetor(Constantes.STATUS_ABERTO, user.getSetor());
+        List<Chamado> chamadosEmAtraso = chamadoService.findByStatusAndSetor(Constantes.STATUS_ATRASADO, user.getSetor());
+        modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
+        getModAndViewsForChamados(modelAndView, totalConluidos, totalEmAndamento, totalEmAtraso, totalAbertos, chamadosEmAtraso, "chamadosEmAtraso");
+        modelAndView.setViewName("indexOperador");
         return modelAndView;
     }
 
@@ -119,11 +137,7 @@ public class ChamadoController {
         List<Chamado> chamadosEmAtraso = chamadoService.findByStatus(Constantes.STATUS_ATRASADO);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
         modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
-        modelAndView.addObject("chamadosEmAtraso", chamadosEmAtraso);
-        modelAndView.addObject("concluidos", totalConluidos);
-        modelAndView.addObject("emAndamento", totalEmAndamento);
-        modelAndView.addObject("totalAbertos",totalAbertos);
-        modelAndView.addObject("totalEmAtraso", totalEmAtraso);
+        getModAndViewsForChamados(modelAndView, totalConluidos, totalEmAndamento, totalEmAtraso, totalAbertos, chamadosEmAtraso, "chamadosEmAtraso");
         modelAndView.setViewName("chamado/admin-chamados");
         return modelAndView;
     }
@@ -220,6 +234,11 @@ public class ChamadoController {
         modelAndView.addObject("usuario2", user);
         chamado.setUserOpen(user);
         chamadoService.insert(chamado);
+        List<Setor> setores = setorService.getAll();
+        modelAndView.addObject("setores", setores);
+
+        List<Problema> problemas = problemaService.getAll();
+        modelAndView.addObject("problemas", problemas);
         modelAndView.addObject("successMessage", "Chamado cadastrado com sucesso");
         Chamado chamado1 = new Chamado();
         modelAndView.addObject("chamado", chamado1);
@@ -229,14 +248,18 @@ public class ChamadoController {
     }
 
 
-    @RequestMapping("/admin/atender/chamado/{id}")
+    @RequestMapping("/atender/chamado/{id}")
     public String atenderChamado(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
         Chamado chamado = chamadoService.findById(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         chamado.setUserClose(user);
         chamadoService.update(chamado);
-        return "redirect:/chamados";
+        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+            return "redirect:/chamados";
+        }else{
+            return "redirect:/listar/chamados-operador";
+        }
     }
 
 

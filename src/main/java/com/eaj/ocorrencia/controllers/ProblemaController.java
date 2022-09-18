@@ -63,6 +63,8 @@ public class ProblemaController {
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
         problemaService.insert(problema);
+        List<Setor> setores = setorService.getAll();
+        modelAndView.addObject("setores", setores);
         modelAndView.addObject("successMessage", "Problema cadastrado com sucesso");
         Problema problema1 = new Problema();
         modelAndView.addObject("problema", problema1);

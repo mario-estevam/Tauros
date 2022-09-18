@@ -72,10 +72,7 @@
                                                 <button type="submit" class="btn btn-primary  mr-2">
                                                     Cadastrar
                                                 </button>
-                                                <a class="btn btn-info  mr-2" th:if="${usuario2.role.role == 'ADMIN'}" href="/chamados">
-                                                    Voltar
-                                                </a>
-                                                <a class="btn btn-info  mr-2" th:unless="${usuario2.role.role == 'ADMIN'}" href="/meus-chamados">
+                                                <a class="btn btn-info  mr-2"  href="/voltar">
                                                     Voltar
                                                 </a>
                                             </div>

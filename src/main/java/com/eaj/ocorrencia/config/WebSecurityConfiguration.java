@@ -47,6 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registrar").permitAll()
                 .antMatchers("/detalhes/chamado/{id}").permitAll()
                 .antMatchers("/deletar/chamado/{id}").permitAll()
+                .antMatchers("/atender/chamado/**").hasAnyAuthority("ADMIN","OPERADOR")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()

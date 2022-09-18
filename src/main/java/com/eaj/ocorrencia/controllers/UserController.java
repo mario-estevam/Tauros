@@ -1,6 +1,5 @@
 package com.eaj.ocorrencia.controllers;
 
-import com.eaj.ocorrencia.models.Chamado;
 import com.eaj.ocorrencia.models.Setor;
 import com.eaj.ocorrencia.models.User;
 import com.eaj.ocorrencia.repositories.RoleRepository;
@@ -51,11 +50,27 @@ public class UserController {
         User user = userService.findUserByUserName(auth.getName());
       if(Objects.equals(user.getRole().getRole(), "ADMIN")){
             return "redirect:/listar/chamados-admin";
-        } else if(user != null){
+        } else if(Objects.equals(user.getRole().getRole(), "REQUISITANTE")){
           return "redirect:/meus-chamados";
-
-      } else{
+        } else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
+          return "redirect:/listar/chamados-operador";
+        }else{
           return "redirect:/login";
+        }
+    }
+
+    @GetMapping(value={"/voltar"})
+    public String voltar(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+            return "redirect:/listar/chamados-admin";
+        } else if(Objects.equals(user.getRole().getRole(), "REQUISITANTE")){
+            return "redirect:/meus-chamados";
+        } else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
+            return "redirect:/listar/chamados-operador";
+        }else{
+            return "redirect:/login";
         }
     }
 
@@ -108,10 +123,6 @@ public class UserController {
 
         return modelAndView;
     }
-
-
-
-
 
 
     @GetMapping(value = "/admin/listar/usuarios")

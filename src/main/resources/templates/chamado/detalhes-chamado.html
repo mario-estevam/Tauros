@@ -40,7 +40,10 @@
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Detalhes do chamado</h6>
+                        <a class="text-decoration-none" href="/voltar">
+                            <i class="fas fa-arrow-left d-inline "></i>
+                        </a>
+                        <h6 class="m-1 font-weight-bold text-primary d-inline">Detalhes do chamado</h6>
                     </div>
                     <div class="card-body">
                         <p>
@@ -73,7 +76,6 @@
                         <h5 th:text="${chamado.setor.nome}"> </h5>
                         </p>
                     </div>
-
         </div>
         <!-- End of Main Content -->
 

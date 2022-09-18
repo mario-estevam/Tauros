@@ -77,11 +77,33 @@
                                         <td th:text="${chamado.data}"></td>
                                         <td th:text="${chamado.userOpen.setor.nome}"></td>
                                         <td>
-                                            <a th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none">
+                                            <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${chamado.id}" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none" >
                                             <span class="icon text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                             </a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:attr="id='recordDeleteModal'+ ${chamado.id}" tabindex="-1" role="dialog" aria-labelledby="recordDeleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="recordDeleteModalLabel">Deletar Chamado</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Tem certeza que deseja deletar este chamado?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                            <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/deletar/chamado/'+${chamado.id}">Sim</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal end -->
                                             <a th:href="@{'/editar/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-primary">
                                                 <i class="fas fa-edit"></i>
@@ -119,11 +141,33 @@
                                         <td th:text="${chamado.data}"></td>
                                         <td th:text="${chamado.userOpen.setor.nome}"></td>
                                         <td>
-                                            <a th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none">
+                                            <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${chamado.id}" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none" >
                                             <span class="icon text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                             </a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:attr="id='recordDeleteModal'+ ${chamado.id}" tabindex="-1" role="dialog" aria-labelledby="recordDeleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="recordDeleteModalLabel">Deletar Chamado</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Tem certeza que deseja deletar este chamado?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                            <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/deletar/chamado/'+${chamado.id}">Sim</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal end -->
                                             <a th:href="@{'/editar/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-primary">
                                                 <i class="fas fa-edit"></i>
@@ -162,11 +206,33 @@
                                         <td th:text="${chamado.data}"></td>
                                         <td th:text="${chamado.userOpen.setor.nome}"></td>
                                         <td>
-                                            <a th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none">
+                                            <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${chamado.id}" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none" >
                                             <span class="icon text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                             </a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:attr="id='recordDeleteModal'+ ${chamado.id}" tabindex="-1" role="dialog" aria-labelledby="recordDeleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="recordDeleteModalLabel">Deletar Chamado</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Tem certeza que deseja deletar este chamado?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                            <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/deletar/chamado/'+${chamado.id}">Sim</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal end -->
                                             <a th:href="@{'/editar/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-primary">
                                                 <i class="fas fa-edit"></i>
