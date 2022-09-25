@@ -42,7 +42,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Atualizar usuario</h1>
                                         <span class="text-success text-center" th:utext="${successMessage}"></span>
                                     </div>
-                                    <form class="user" th:action="@{/admin/editar/usuario}"
+                                    <form class="user" th:action="@{/editar/usuario}"
                                           method="post" autocomplete="off"  role="form">
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
@@ -96,9 +96,12 @@
                                             <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary ">
                                             Salvar
                                         </button>
+                                        <a class="btn btn-info  mr-2"  href="/voltar">
+                                            Voltar
+                                        </a>
                                         <hr>
                                     </form>
                                 </div>

@@ -152,8 +152,22 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/admin/editar/usuario")
-    public ModelAndView editSave(User user){
+
+    @GetMapping(value = "/editar/usuario")
+    public ModelAndView updateUser(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user2 = userService.findUserByUserName(auth.getName());
+        List<Setor> setores = setorService.getAll();
+        modelAndView.addObject("setores", setores);
+        modelAndView.addObject("usuario2", user2);
+        modelAndView.addObject("usuario", user2);
+        modelAndView.setViewName("usuario/atualizar-usuario");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/editar/usuario")
+    public ModelAndView editSaver(User user){
 
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -161,23 +175,31 @@ public class UserController {
         List<Setor> setores = setorService.getAll();
         modelAndView.addObject("setores", setores);
         modelAndView.addObject("usuario2", user2);
+        modelAndView.addObject("usuario", user2);
         Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getRepetirSenha());
 
-        if(!confirm){
+        if(Boolean.FALSE.equals(confirm)){
             modelAndView.addObject("senhas","as senhas não coincidem");
             modelAndView.addObject("usuario", user);
             modelAndView.setViewName("usuario/atualizar-usuario");
-        } else {
+        } else if(user2.getRole().getRole().equals("ADMIN")) {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "Usuario atualizado com sucesso");
             modelAndView.addObject("usuario", new User());
+            modelAndView.setViewName("usuario/atualizar-usuario");
+        }else{
+            modelAndView.addObject("successMessage", "Usuario atualizado com sucesso");
+            modelAndView.addObject("usuario",user2);
+            modelAndView.setViewName("usuario/atualizar-usuario");
+        }
+
+        if(user.getSenha()==null){
+            modelAndView.addObject("senhas","insira uma senha");
+            modelAndView.addObject("usuario", user);
             modelAndView.setViewName("usuario/atualizar-usuario");
         }
 
         return modelAndView;
     }
-
-
-
 
 }

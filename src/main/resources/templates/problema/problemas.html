@@ -37,13 +37,17 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Problemas</h1>
                 </div>
-
+                <div  th:if="${#request.getParameter('msg')} !=null" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong  th:text="${#request.getParameter('msg')}"></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Tabela de problemas</h6>
                         <hr/>
                         <a href="/admin/cadastro/problema" class="btn btn-outline-primary"> Adicionar Problema </a>
-                        <span th:if="${#request.getParameter('msg')} !=null" class="alert alert-info par position-relative" role="alert" th:text="${#request.getParameter('msg')}"></span>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
