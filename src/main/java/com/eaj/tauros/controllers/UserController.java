@@ -1,11 +1,11 @@
-package com.eaj.ocorrencia.controllers;
+package com.eaj.tauros.controllers;
 
-import com.eaj.ocorrencia.models.Setor;
-import com.eaj.ocorrencia.models.User;
-import com.eaj.ocorrencia.repositories.RoleRepository;
-import com.eaj.ocorrencia.services.ChamadoService;
-import com.eaj.ocorrencia.services.SetorService;
-import com.eaj.ocorrencia.services.UserService;
+import com.eaj.tauros.models.Setor;
+import com.eaj.tauros.models.User;
+import com.eaj.tauros.repositories.RoleRepository;
+import com.eaj.tauros.services.ChamadoService;
+import com.eaj.tauros.services.SetorService;
+import com.eaj.tauros.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,6 +58,8 @@ public class UserController {
           return "redirect:/meus-chamados";
         } else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
           return "redirect:/listar/chamados-operador";
+        }else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+            return "redirect:/listar/chamados-responsavel-setor";
         }else{
           return "redirect:/login";
         }
@@ -74,6 +75,8 @@ public class UserController {
             return "redirect:/meus-chamados";
         } else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
             return "redirect:/listar/chamados-operador";
+        }else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+            return "redirect:/listar/chamados-responsavel-setor";
         }else{
             return "redirect:/login";
         }
@@ -120,7 +123,7 @@ public class UserController {
                 modelAndView.setViewName("usuario/cadastro-usuario");
             } else {
                 userService.saveUser(user);
-                modelAndView.addObject("successMessage", "Usuario cadastradp com sucesso");
+                modelAndView.addObject("successMessage", "Usuario cadastrado com sucesso");
                 modelAndView.addObject("usuario", new User());
                 modelAndView.setViewName("usuario/cadastro-usuario");
             }

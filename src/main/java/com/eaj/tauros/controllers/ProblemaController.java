@@ -1,12 +1,12 @@
-package com.eaj.ocorrencia.controllers;
+package com.eaj.tauros.controllers;
 
 
-import com.eaj.ocorrencia.models.Problema;
-import com.eaj.ocorrencia.models.Setor;
-import com.eaj.ocorrencia.models.User;
-import com.eaj.ocorrencia.services.ProblemaService;
-import com.eaj.ocorrencia.services.SetorService;
-import com.eaj.ocorrencia.services.UserService;
+import com.eaj.tauros.models.Problema;
+import com.eaj.tauros.models.Setor;
+import com.eaj.tauros.models.User;
+import com.eaj.tauros.services.ProblemaService;
+import com.eaj.tauros.services.SetorService;
+import com.eaj.tauros.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +30,7 @@ public class ProblemaController {
     UserService userService;
 
 
-    @GetMapping(value = "/admin/listar/problemas")
+    @GetMapping(value = "/problemas")
     public ModelAndView listProblemas(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -42,7 +42,7 @@ public class ProblemaController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/admin/cadastro/problema")
+    @GetMapping(value = "/problema/cadastro")
     public ModelAndView createProblema(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -56,7 +56,7 @@ public class ProblemaController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/admin/cadastro/problema")
+    @PostMapping(value = "/problema/cadastro")
     public ModelAndView createNewProblema(Problema problema){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -73,14 +73,14 @@ public class ProblemaController {
         return modelAndView;
     }
 
-    @RequestMapping("/admin/deletar/problema/{id}")
+    @RequestMapping("/problema/deletar/{id}")
     public String doDelete(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
         problemaService.delete(id);
         redirectAttributes.addAttribute("msg", "Deletado com sucesso");
         return "redirect:/admin/listar/problemas";
     }
 
-    @GetMapping(value = "/admin/editar/problema/{id}")
+    @GetMapping(value = "/problema/editar/{id}")
     public ModelAndView updateProblema(@PathVariable("id") Long id){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -94,7 +94,7 @@ public class ProblemaController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/admin/editar/problema")
+    @PostMapping(value = "/problema/editar")
     public String editSave(@ModelAttribute Problema problema, RedirectAttributes redirectAttributes){
         problemaService.insert(problema);
         redirectAttributes.addAttribute("msg", "Problema atualizado com sucesso");

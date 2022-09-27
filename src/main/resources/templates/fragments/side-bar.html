@@ -1,6 +1,8 @@
 
 <!-- Sidebar -->
-<ul  th:fragment="fragment-bar" th:if="${usuario2.role.role == 'ADMIN'}" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul th:fragment="fragment-bar" th:if="${usuario2.role.role == 'ADMIN' || usuario2.role.role == 'RESPONSAVELSETOR'}"
+    class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+    xmlns:th="http://www.w3.org/1999/xhtml">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
 
@@ -28,7 +30,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
 
-        <a class="nav-link " href="/chamados?size=5&page=1&status=ANDAMENTO" >
+        <a th:if="${usuario2.role.role == 'ADMIN'}" class="nav-link " href="/chamados" >
             <i class="fas fa-fw fa-comment"></i>
             <span>Chamados</span>
         </a>
@@ -38,12 +40,17 @@
             <span>Meus atendimentos</span>
         </a>
 
-        <a th:if="${usuario2.role.role == 'REQUISITANTE'}"  class="nav-link " href="/admin/chamados/meus-atendimentos" >
+        <a th:if="${usuario2.role.role == 'RESPONSAVELSETOR'}" class="nav-link " href="/responsavel/chamados/meus-atendimentos" >
             <i class="fas fa-fw fa-comment"></i>
             <span>Meus atendimentos</span>
         </a>
 
         <a th:if="${usuario2.role.role == 'ADMIN'}" class="nav-link " href="/admin/listar/usuarios" >
+            <i class="fas fa-fw fa-users"></i>
+            <span>Usuários</span>
+        </a>
+
+        <a th:if="${usuario2.role.role == 'RESPONSAVELSETOR'}" class="nav-link " href="/responsavel/listar/usuarios" >
             <i class="fas fa-fw fa-users"></i>
             <span>Usuários</span>
         </a>
@@ -59,7 +66,7 @@
             <span>Setores</span>
         </a>
 
-        <a th:if="${usuario2.role.role == 'ADMIN'}" class="nav-link " href="/admin/listar/problemas" >
+        <a th:if="${usuario2.role.role == 'ADMIN' || usuario2.role.role == 'RESPONSAVELSETOR'}" class="nav-link " href="/problemas" >
             <i class="fas fa-fw fa-shield-virus"></i>
             <span>Problemas</span>
         </a>

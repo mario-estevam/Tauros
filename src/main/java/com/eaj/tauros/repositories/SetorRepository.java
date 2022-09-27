@@ -1,6 +1,6 @@
-package com.eaj.ocorrencia.repositories;
+package com.eaj.tauros.repositories;
 
-import com.eaj.ocorrencia.models.Setor;
+import com.eaj.tauros.models.Setor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

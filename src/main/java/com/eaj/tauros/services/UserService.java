@@ -1,9 +1,9 @@
-package com.eaj.ocorrencia.services;
+package com.eaj.tauros.services;
 
-import com.eaj.ocorrencia.models.Role;
-import com.eaj.ocorrencia.models.User;
-import com.eaj.ocorrencia.repositories.RoleRepository;
-import com.eaj.ocorrencia.repositories.UserRepository;
+import com.eaj.tauros.models.Role;
+import com.eaj.tauros.models.User;
+import com.eaj.tauros.repositories.RoleRepository;
+import com.eaj.tauros.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {

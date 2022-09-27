@@ -1,7 +1,7 @@
-package com.eaj.ocorrencia.repositories;
+package com.eaj.tauros.repositories;
 
 
-import com.eaj.ocorrencia.models.User;
+import com.eaj.tauros.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

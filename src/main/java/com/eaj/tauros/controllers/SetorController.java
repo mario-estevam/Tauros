@@ -1,9 +1,9 @@
-package com.eaj.ocorrencia.controllers;
+package com.eaj.tauros.controllers;
 
-import com.eaj.ocorrencia.models.Setor;
-import com.eaj.ocorrencia.models.User;
-import com.eaj.ocorrencia.services.SetorService;
-import com.eaj.ocorrencia.services.UserService;
+import com.eaj.tauros.models.Setor;
+import com.eaj.tauros.models.User;
+import com.eaj.tauros.services.SetorService;
+import com.eaj.tauros.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

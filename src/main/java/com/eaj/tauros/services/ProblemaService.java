@@ -1,7 +1,7 @@
-package com.eaj.ocorrencia.services;
+package com.eaj.tauros.services;
 
-import com.eaj.ocorrencia.models.Problema;
-import com.eaj.ocorrencia.repositories.ProblemaRepository;
+import com.eaj.tauros.models.Problema;
+import com.eaj.tauros.repositories.ProblemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;

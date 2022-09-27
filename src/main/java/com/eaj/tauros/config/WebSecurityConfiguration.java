@@ -1,6 +1,6 @@
-package com.eaj.ocorrencia.config;
+package com.eaj.tauros.config;
 
-import com.eaj.ocorrencia.services.MyUserDetailsService;
+import com.eaj.tauros.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -40,11 +40,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers(loginPage).permitAll()
                 .antMatchers(index).permitAll()
-                .antMatchers("/index").permitAll()
+                .antMatchers("/listar/chamados-responsavel-setor").hasAuthority("RESPONSAVELSETOR")
                 .antMatchers("/cadastro/usuario").permitAll()
                 .antMatchers("/detalhes/chamado/{id}").permitAll()
                 .antMatchers("/deletar/chamado/{id}").permitAll()
                 .antMatchers("/atender/chamado/**").hasAnyAuthority("ADMIN","OPERADOR")
+                .antMatchers("/problema/**").hasAnyAuthority("ADMIN","RESPONSAVELSETOR")
+                .antMatchers("/problemas/**").hasAnyAuthority("ADMIN","RESPONSAVELSETOR")
+                .antMatchers("/chamados").hasAuthority("ADMIN")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()

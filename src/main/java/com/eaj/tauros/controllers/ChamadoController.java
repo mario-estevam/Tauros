@@ -1,14 +1,14 @@
-package com.eaj.ocorrencia.controllers;
+package com.eaj.tauros.controllers;
 
-import com.eaj.ocorrencia.models.Chamado;
-import com.eaj.ocorrencia.models.Problema;
-import com.eaj.ocorrencia.models.Setor;
-import com.eaj.ocorrencia.models.User;
-import com.eaj.ocorrencia.services.ChamadoService;
-import com.eaj.ocorrencia.services.ProblemaService;
-import com.eaj.ocorrencia.services.SetorService;
-import com.eaj.ocorrencia.services.UserService;
-import com.eaj.ocorrencia.util.Constantes;
+import com.eaj.tauros.models.Chamado;
+import com.eaj.tauros.models.Problema;
+import com.eaj.tauros.models.Setor;
+import com.eaj.tauros.models.User;
+import com.eaj.tauros.services.ChamadoService;
+import com.eaj.tauros.services.ProblemaService;
+import com.eaj.tauros.services.SetorService;
+import com.eaj.tauros.services.UserService;
+import com.eaj.tauros.util.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,7 +57,7 @@ public class ChamadoController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        List<Chamado> chamadosAbertos = chamadoService.meusChamados(user,Constantes.STATUS_ABERTO);
+        List<Chamado> chamadosAbertos = chamadoService.meusChamados(user, Constantes.STATUS_ABERTO);
         List<Chamado> chamadosEmAndamento = chamadoService.meusChamados(user,Constantes.STATUS_ANDAMENTO);
         List<Chamado> chamadosAtrasados = chamadoService.meusChamados(user,Constantes.STATUS_ATRASADO);
         modelAndView.addObject("chamadosAbertos", chamadosAbertos);
@@ -110,7 +110,7 @@ public class ChamadoController {
         Integer totalConluidos = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_CONCLUIDO, user);
         Integer totalEmAndamento = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ANDAMENTO, user);
         Integer totalEmAtraso = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ATRASADO, user);
-        Integer totalAbertos = chamadoService.totalAbertosPorSetor(Constantes.STATUS_ABERTO,user.getSetor());
+        Integer totalAbertos = chamadoService.totalChamadosPorSetorEStatus(Constantes.STATUS_ABERTO,user.getSetor());
         List<Chamado> chamadosEmAndamento = chamadoService.findByStatusAndUser(Constantes.STATUS_ANDAMENTO, user);
         List<Chamado> chamadosEmAberto = chamadoService.findByStatusAndSetor(Constantes.STATUS_ABERTO, user.getSetor());
         List<Chamado> chamadosEmAtraso = chamadoService.findByStatusAndSetor(Constantes.STATUS_ATRASADO, user.getSetor());

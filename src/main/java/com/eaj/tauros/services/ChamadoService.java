@@ -1,15 +1,11 @@
-package com.eaj.ocorrencia.services;
+package com.eaj.tauros.services;
 
-import com.eaj.ocorrencia.models.Chamado;
-import com.eaj.ocorrencia.models.Setor;
-import com.eaj.ocorrencia.models.User;
-import com.eaj.ocorrencia.repositories.ChamadoRepository;
-import com.eaj.ocorrencia.util.Constantes;
+import com.eaj.tauros.models.Chamado;
+import com.eaj.tauros.models.Setor;
+import com.eaj.tauros.models.User;
+import com.eaj.tauros.repositories.ChamadoRepository;
+import com.eaj.tauros.util.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -120,7 +116,7 @@ public class ChamadoService {
         return repository.countAllByStatusLike(Constantes.STATUS_ATRASADO);
     }
 
-    public Integer totalAbertosPorSetor(String status, Setor setor){
+    public Integer totalChamadosPorSetorEStatus(String status, Setor setor){
         return repository.countAllByStatusLikeAndSetor(status,setor);
     }
 

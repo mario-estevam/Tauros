@@ -1,7 +1,7 @@
-package com.eaj.ocorrencia.services;
+package com.eaj.tauros.services;
 
-import com.eaj.ocorrencia.models.Setor;
-import com.eaj.ocorrencia.repositories.SetorRepository;
+import com.eaj.tauros.models.Setor;
+import com.eaj.tauros.repositories.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package com.eaj.ocorrencia.services;
+package com.eaj.tauros.services;
 
-import com.eaj.ocorrencia.models.Role;
-import com.eaj.ocorrencia.models.User;
+import com.eaj.tauros.models.Role;
+import com.eaj.tauros.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

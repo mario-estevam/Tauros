@@ -1,4 +1,4 @@
-package com.eaj.ocorrencia.models;
+package com.eaj.tauros.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.eaj.ocorrencia.config;
+package com.eaj.tauros.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

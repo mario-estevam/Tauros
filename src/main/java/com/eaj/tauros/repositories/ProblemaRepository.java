@@ -1,6 +1,6 @@
-package com.eaj.ocorrencia.repositories;
+package com.eaj.tauros.repositories;
 
-import com.eaj.ocorrencia.models.Problema;
+import com.eaj.tauros.models.Problema;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
