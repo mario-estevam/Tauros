@@ -150,6 +150,7 @@
                                    data-toggle="table">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Status</th>
                                     <th>Problema</th>
                                     <th>Requisitante</th>
@@ -159,6 +160,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="chamado : ${chamadosEmAberto}">
+                                    <td th:text="${chamado.id}"></td>
                                     <td th:text="${chamado.status}"></td>
                                     <td th:text="${chamado.problema.nome}"></td>
                                     <td th:text="${chamado.userOpen.nome}"></td>
@@ -174,6 +176,7 @@
                                    data-toggle="table">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Status</th>
                                     <th>Problema</th>
                                     <th>Requisitante</th>
@@ -183,6 +186,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="chamado : ${chamadosEmAndamento}">
+                                    <td th:text="${chamado.id}"></td>
                                     <td th:text="${chamado.status}"></td>
                                     <td th:text="${chamado.problema.nome}"></td>
                                     <td th:text="${chamado.userOpen.nome}"></td>

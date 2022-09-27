@@ -53,7 +53,12 @@ public class UserService {
     }
 
     public List<User> getAll(){
-        return userRepository.findAll();
+        return userRepository.findAllByActiveTrue();
+    }
+
+
+    public List<User> getAllPendentes(){
+        return userRepository.findAllByActiveFalse();
     }
 
     public User findUserByUserName(String userName) {
@@ -74,7 +79,28 @@ public class UserService {
         Role userRole = user.getRole();
         user.setActive(true);
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        System.out.println(userRole);
         return userRepository.save(user);
+    }
+
+    public User saveUserPublic(User user) {
+        user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
+        user.setRepetirSenha(bCryptPasswordEncoder.encode(user.getRepetirSenha()));
+        Role userRole = user.getRole();
+        user.setActive(Boolean.FALSE);
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+
+        return userRepository.save(user);
+    }
+
+    public void ativarUsuario(Long id) {
+        User user = userRepository.getById(id);
+        user.setActive(true);
+        userRepository.save(user);
+    }
+
+    public void deletar(Long id) {
+        User user = userRepository.getById(id);
+        user.setActive(false);
+        userRepository.save(user);
     }
 }

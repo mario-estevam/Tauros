@@ -110,13 +110,17 @@ public class ChamadoController {
         Integer totalConluidos = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_CONCLUIDO, user);
         Integer totalEmAndamento = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ANDAMENTO, user);
         Integer totalEmAtraso = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ATRASADO, user);
-        Integer totalAbertos = chamadoService.totalChamadosByStatusAndUser(Constantes.STATUS_ABERTO, user);
+        Integer totalAbertos = chamadoService.totalAbertosPorSetor(Constantes.STATUS_ABERTO,user.getSetor());
         List<Chamado> chamadosEmAndamento = chamadoService.findByStatusAndUser(Constantes.STATUS_ANDAMENTO, user);
         List<Chamado> chamadosEmAberto = chamadoService.findByStatusAndSetor(Constantes.STATUS_ABERTO, user.getSetor());
         List<Chamado> chamadosEmAtraso = chamadoService.findByStatusAndSetor(Constantes.STATUS_ATRASADO, user.getSetor());
+        modelAndView.addObject("totalConluidos", totalConluidos);
+        modelAndView.addObject("totalEmAtraso", totalEmAtraso);
+        modelAndView.addObject("totalAbertos", totalAbertos);
+        modelAndView.addObject("totalEmAndamento", totalEmAndamento);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
         modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
-        getModAndViewsForChamados(modelAndView, totalConluidos, totalEmAndamento, totalEmAtraso, totalAbertos, chamadosEmAtraso, "chamadosEmAtraso");
+        modelAndView.addObject("chamadosEmAtraso",chamadosEmAtraso);
         modelAndView.setViewName("indexOperador");
         return modelAndView;
     }

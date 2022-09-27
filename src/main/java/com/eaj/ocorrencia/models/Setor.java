@@ -12,10 +12,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Data
+@Table(name = "setores")
 public class Setor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "setor_id")
     private Long id;
 

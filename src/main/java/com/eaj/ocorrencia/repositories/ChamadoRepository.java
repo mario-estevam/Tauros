@@ -14,6 +14,7 @@ public interface ChamadoRepository extends JpaRepository<Chamado,Long> {
     List<Chamado> findAllByUserCloseAndDeleteIsNullAndStatus(User user,String status);
     List<Chamado> getByUserOpenAndDeleteIsNullAndStatus(User user,String status);
     Integer countAllByStatusLike(String status);
+    Integer countAllByStatusLikeAndSetor(String status, Setor setor);
     Integer countAllByStatusLikeAndUserClose(String status, User user);
     List<Chamado> findAllByStatus(String status);
     List<Chamado> findAllByStatusAndUserClose(String status, User user);

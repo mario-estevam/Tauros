@@ -60,6 +60,7 @@
                                         data-toggle="table">
                                     <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Status</th>
                                         <th>Problema</th>
                                         <th>Operador</th>
@@ -70,6 +71,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="chamado : ${chamadosAbertos}">
+                                        <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
                                         <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>
@@ -124,6 +126,7 @@
                                         data-toggle="table">
                                     <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Status</th>
                                         <th>Problema</th>
                                         <th>Operador</th>
@@ -134,6 +137,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="chamado : ${chamadosEmAndamento}">
+                                        <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
                                         <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>
@@ -189,6 +193,7 @@
                                         data-toggle="table">
                                     <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Status</th>
                                         <th>Problema</th>
                                         <th>Operador</th>
@@ -199,6 +204,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="chamado : ${chamadosAtrasados}">
+                                        <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
                                         <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>

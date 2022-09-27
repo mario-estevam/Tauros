@@ -57,6 +57,7 @@
                                 <table class="table table-striped display" id="table_id" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Status</th>
                                         <th>Problema</th>
                                         <th>Requisitante</th>
@@ -67,6 +68,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="chamado : ${chamadosAndamento}">
+                                        <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
                                         <td th:text="${chamado.userOpen.nome}"></td>
@@ -92,6 +94,7 @@
                                 <table class="table table-striped display" id="table_id2" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Status</th>
                                         <th>Problema</th>
                                         <th>Requisitante</th>
@@ -102,6 +105,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="chamado : ${chamadosAtrasados}">
+                                        <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
                                         <td th:text="${chamado.userOpen.nome}"></td>

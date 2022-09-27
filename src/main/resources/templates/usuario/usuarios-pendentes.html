@@ -35,21 +35,17 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Usuários</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Usuários Pendentes</h1>
                 </div>
-
-                <div  th:if="${#request.getParameter('msg')} !=null" class="alert alert-info alert-dismissible fade show" role="alert">
+                <div  th:if="${#request.getParameter('msg')} !=null" class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong  th:text="${#request.getParameter('msg')}"></strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Tabela de usuários</h6>
-                        <hr/>
-                        <a href="/admin/cadastro/usuario" class="btn btn-outline-primary"> Adicionar Usuário </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -73,39 +69,34 @@
                                     <td th:unless="(${usuario.setor})">----</td>
                                     <td th:text="${usuario.email}"></td>
                                     <td>
-                                        <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${usuario.id}" th:href="@{'/admin/deletar/usuario/' + ${usuario.id}}" class="text-decoration-none" >
-                                            <span class="icon text-danger">
-                                                <i class="fas fa-trash"></i>
+                                        <a data-toggle="modal" th:attr="data-target='#confirmModal'+${usuario.id}" th:href="@{'/admin/ativar/usuario/' + ${usuario.id}}" class="text-decoration-none align-content-center" >
+                                            <span class="icon text-success">
+                                                <i class="fas fa-check"></i>
                                             </span>
                                         </a>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" th:attr="id='recordDeleteModal'+ ${usuario.id}" tabindex="-1" role="dialog" aria-labelledby="recordDeleteModalLabel" aria-hidden="true">
+                                        <div class="modal fade" th:attr="id='confirmModal'+ ${usuario.id}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="recordDeleteModalLabel">Deletar Usuario</h5>
+                                                        <h5 class="modal-title" id="confirmModalLabel">Ativar usuário</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Tem certeza que deseja deletar esse usuario?
+                                                        Habilitar este usuário para uso do sistema?
                                                         <li th:utext="${usuario.nome}"></li>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                                        <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/admin/deletar/usuario/'+${usuario.id}">Sim</a>
+                                                        <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/admin/ativar/usuario/'+${usuario.id}">Sim</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Modal end -->
-                                        <a th:href="@{'/admin/editar/usuario/' + ${usuario.id}}" class="ml-3">
-                                            <span class="icon text-primary">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>

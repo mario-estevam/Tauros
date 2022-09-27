@@ -71,7 +71,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Concluidos</div>
-                                        <div th:utext="${concluidos}"
+                                        <div th:utext="${totalConluidos}"
                                              class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                     </div>
                                     <div class="col-auto">
@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div th:utext="${emAndamento}"
+                                                <div th:utext="${totalEmAndamento}"
                                                      class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50</div>
                                             </div>
 
@@ -154,6 +154,7 @@
                                             data-toggle="table">
                                         <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Status</th>
                                             <th>Problema</th>
                                             <th>Requisitante</th>
@@ -164,6 +165,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="chamado : ${chamadosEmAberto}">
+                                            <td th:text="${chamado.id}"></td>
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
                                             <td th:text="${chamado.userOpen.nome}"></td>
@@ -190,6 +192,7 @@
                                             data-toggle="table">
                                         <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Status</th>
                                             <th>Problema</th>
                                             <th>Requisitante</th>
@@ -200,6 +203,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="chamado : ${chamadosEmAndamento}">
+                                            <td th:text="${chamado.id}"></td>
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
                                             <td th:text="${chamado.userOpen.nome}"></td>

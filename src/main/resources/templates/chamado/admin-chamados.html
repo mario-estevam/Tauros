@@ -63,6 +63,7 @@
                                            data-toggle="table">
                                         <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Status</th>
                                             <th>Problema</th>
                                             <th>Requisitante</th>
@@ -73,6 +74,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="chamado : ${chamadosEmAberto}">
+                                            <td th:text="${chamado.id}"></td>
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
                                             <td th:text="${chamado.userOpen.nome}"></td>
@@ -99,9 +101,11 @@
                                               data-toggle="table">
                                     <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Status</th>
                                         <th>Problema</th>
                                         <th>Requisitante</th>
+                                        <th>Operador</th>
                                         <th>Data de abertura</th>
                                         <th>Setor Requisitante</th>
                                         <th>Ações</th>
@@ -109,9 +113,12 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="chamado : ${chamadosEmAndamento}">
+                                        <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
                                         <td th:text="${chamado.userOpen.nome}"></td>
+                                        <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>
+                                        <td th:unless="${chamado.userClose != null}">--</td>
                                         <td th:text="${chamado.data}"></td>
                                         <td th:text="${chamado.userOpen.setor.nome}"></td>
                                         <td>
@@ -131,9 +138,11 @@
                                             data-toggle="table">
                                         <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Status</th>
                                             <th>Problema</th>
                                             <th>Requisitante</th>
+                                            <th>Operador</th>
                                             <th>Data de abertura</th>
                                             <th>Setor Requisitante</th>
                                             <th>Ações</th>
@@ -141,9 +150,12 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="chamado : ${chamadosEmAtraso}">
+                                            <td th:text="${chamado.id}"></td>
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
                                             <td th:text="${chamado.userOpen.nome}"></td>
+                                            <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>
+                                            <td th:unless="${chamado.userClose != null}">--</td>
                                             <td th:text="${chamado.data}"></td>
                                             <td th:text="${chamado.userOpen.setor.nome}"></td>
                                             <td>

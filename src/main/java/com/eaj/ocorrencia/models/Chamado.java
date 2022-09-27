@@ -18,7 +18,7 @@ import java.util.Date;
 public class Chamado {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "chamado_id")
     private Long id;
 

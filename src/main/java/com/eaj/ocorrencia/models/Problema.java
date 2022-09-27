@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 public class Problema {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "problema_id")
     private Long id;
 

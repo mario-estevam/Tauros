@@ -120,6 +120,10 @@ public class ChamadoService {
         return repository.countAllByStatusLike(Constantes.STATUS_ATRASADO);
     }
 
+    public Integer totalAbertosPorSetor(String status, Setor setor){
+        return repository.countAllByStatusLikeAndSetor(status,setor);
+    }
+
     public List<Chamado> findByStatus(String status){
         return repository.findAllByStatus(status);
     }
