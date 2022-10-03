@@ -55,4 +55,21 @@ public class ResponsavelPorSetorController {
         modelAndView.addObject("totalAbertos", totalAbertos);
         modelAndView.addObject("totalEmAtraso", totalEmAtraso);
     }
+
+    @GetMapping(value = "/responsavel/listar/usuarios")
+    public ModelAndView listUsuarios(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user2 = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("usuario2", user2);
+        List<User> userList = userService.getAllBySetor(user2.getSetor());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
+        List<User> userListInactives = userService.getAllInactivesBySetor(user2.getSetor());
+        modelAndView.addObject("usuarios", userList);
+        modelAndView.addObject("usuariosInativos", userListInactives);
+
+        modelAndView.setViewName("usuarios-setor");
+        return modelAndView;
+    }
 }

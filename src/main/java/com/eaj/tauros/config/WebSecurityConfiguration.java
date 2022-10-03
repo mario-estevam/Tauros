@@ -44,7 +44,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cadastro/usuario").permitAll()
                 .antMatchers("/detalhes/chamado/{id}").permitAll()
                 .antMatchers("/deletar/chamado/{id}").permitAll()
-                .antMatchers("/atender/chamado/**").hasAnyAuthority("ADMIN","OPERADOR")
+                .antMatchers("/atender/chamado/**").hasAnyAuthority("ADMIN","OPERADOR","RESPONSAVELSETOR" )
                 .antMatchers("/problema/**").hasAnyAuthority("ADMIN","RESPONSAVELSETOR")
                 .antMatchers("/problemas/**").hasAnyAuthority("ADMIN","RESPONSAVELSETOR")
                 .antMatchers("/chamados").hasAuthority("ADMIN")
@@ -69,7 +69,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/static/js/**", "/images/**", "/error","/vendor/**");
+                .antMatchers("/resources/**/**", "/static/**", "/css/**", "/static/js/**", "/images/**", "/error","/vendor/**");
     }
 
 }

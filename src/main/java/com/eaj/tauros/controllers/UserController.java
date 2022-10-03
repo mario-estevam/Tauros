@@ -88,6 +88,8 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user2 = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("usuario2", user2);
         User user = new User();
         List<Setor> setores = setorService.getAll();
@@ -105,7 +107,8 @@ public class UserController {
         List<Setor> setores = setorService.getAll();
         modelAndView.addObject("setores", setores);
         modelAndView.addObject("usuario2", user2);
-
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
             Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getRepetirSenha());
             Boolean emailConfirm = userService.findUserByEmail(user.getEmail());
             Boolean userNameConfirm = userService.findUserUsernameBoolean(user.getUserName());
@@ -140,7 +143,11 @@ public class UserController {
         User user2 = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user2);
         List<User> userList = userService.getAll();
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
+        List<User> userListInactives = userService.getAllInactives();
         modelAndView.addObject("usuarios", userList);
+        modelAndView.addObject("usuariosInativos", userListInactives);
 
         modelAndView.setViewName("usuario/usuarios");
         return modelAndView;
@@ -151,6 +158,8 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<Setor> setores = setorService.getAll();
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("setores", setores);
         User user2 = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user2);
@@ -223,33 +232,29 @@ public class UserController {
     }
 
     @PostMapping(value = "/cadastro/usuario")
-    public ModelAndView postForUserPublic(@Valid User user ) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String postForUserPublic(@Valid User user, RedirectAttributes redirectAttributes ) {
+
         Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getRepetirSenha());
         Boolean emailConfirm = userService.findUserByEmail(user.getEmail());
         Boolean userNameConfirm = userService.findUserUsernameBoolean(user.getUserName());
-        List<Setor> setores = setorService.getAll();
-        modelAndView.addObject("setores", setores);
+
         if(Boolean.FALSE.equals(confirm)){
-            modelAndView.addObject("senhas","as senhas não coincidem");
-            modelAndView.addObject("usuario", user);
-            modelAndView.setViewName("cadastro-usuario");
+            redirectAttributes.addAttribute("usuario", user);
+            redirectAttributes.addAttribute("senhas", "Senhas não coincidem");
+            return "redirect:/cadastro/usuario";
         } else if(Boolean.FALSE.equals(userNameConfirm)){
-            modelAndView.addObject("userName","Este nome de usuário já existe");
-            modelAndView.addObject("usuario", user);
-            modelAndView.setViewName("cadastro-usuario");
+            redirectAttributes.addAttribute("usuario", user);
+            redirectAttributes.addAttribute("userName", "Este nome de usuário já existe.");
+            return "redirect:/cadastro/usuario";
         } else if(Boolean.FALSE.equals(emailConfirm)){
-            modelAndView.addObject("email","Este email já foi cadastrado");
-            modelAndView.addObject("usuario", user);
-            modelAndView.setViewName("cadastro-usuario");
+            redirectAttributes.addAttribute("usuario", user);
+            redirectAttributes.addAttribute("email", "Email já foi cadastrado");
+            return "redirect:/cadastro/usuario";
         } else {
-            userService.saveUserPublic(user);
-            modelAndView.addObject("successMessage", "Usuario cadastrado com sucesso");
-            modelAndView.addObject("usuario", new User());
-            modelAndView.setViewName("cadastro-usuario-public");
+            redirectAttributes.addAttribute("msg", "Usuário Cadastrado com sucesso!");
+            return "redirect:/login";
         }
 
-        return modelAndView;
     }
 
 
@@ -258,6 +263,8 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user2 = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("usuario2", user2);
         List<User> userList = userService.getAllPendentes();
         modelAndView.addObject("usuarios", userList);
@@ -271,6 +278,13 @@ public class UserController {
         userService.ativarUsuario(id);
         redirectAttributes.addAttribute("msg", "Usuário habilitado com sucesso!");
         return "redirect:/admin/listar/usuarios-pendentes";
+    }
+
+    @GetMapping(value={"/admin/ativar/usuario-inativo/{id}"})
+    public String ativarUsuarioInativo(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
+        userService.ativarUsuarioInativo(id);
+        redirectAttributes.addAttribute("msg", "Usuário habilitado com sucesso!");
+        return "redirect:/admin/listar/usuarios";
     }
 
     @GetMapping(value={"/admin/deletar/usuario/{id}"})

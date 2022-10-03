@@ -35,6 +35,8 @@ public class ProblemaController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("usuario2", user);
         List<Problema> problemas = problemaService.getAll();
         modelAndView.addObject("problemas", problemas);
@@ -47,6 +49,8 @@ public class ProblemaController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("usuario2", user);
         Problema problema = new Problema();
         List<Setor> setores = setorService.getAll();
@@ -60,8 +64,13 @@ public class ProblemaController {
     public ModelAndView createNewProblema(Problema problema){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
+        if(user.getRole().getRole().equals("RESPONSAVELSETOR")){
+           problema.setSetor(user.getSetor());
+        }
         problemaService.insert(problema);
         List<Setor> setores = setorService.getAll();
         modelAndView.addObject("setores", setores);
@@ -86,6 +95,8 @@ public class ProblemaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         List<Setor> setores = setorService.getAll();
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("setores", setores);
         modelAndView.addObject("usuario2", user);
         Problema problema = problemaService.findById(id);
@@ -96,9 +107,14 @@ public class ProblemaController {
 
     @PostMapping(value = "/problema/editar")
     public String editSave(@ModelAttribute Problema problema, RedirectAttributes redirectAttributes){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        if(user.getRole().getRole().equals("RESPONSAVELSETOR")){
+            problema.setSetor(user.getSetor());
+        }
         problemaService.insert(problema);
         redirectAttributes.addAttribute("msg", "Problema atualizado com sucesso");
-        return "redirect:/admin/listar/problemas";
+        return "redirect:/problemas";
     }
 
 

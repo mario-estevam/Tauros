@@ -71,19 +71,19 @@
                                     <td th:text="${chamado.data}"></td>
                                     <td th:text="${chamado.userOpen.setor.nome}"></td>
                                     <td>
-                                        <a th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none">
+                                        <a  data-toggle="tooltip" data-placement="top" title="Deletar chamado" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none">
                                             <span class="icon text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                             <span class="text">Excluir</span>
                                         </a>
-                                        <a th:href="@{'/editar/chamado/' + ${chamado.id}}" class=" text-decoration-noneml-3">
+                                        <a data-toggle="tooltip" data-placement="top" title="Editar chamado" th:href="@{'/editar/chamado/' + ${chamado.id}}" class=" text-decoration-noneml-3">
                                             <span class="icon text-primary">
                                                 <i class="fas fa-edit"></i>
                                             </span>
                                             <span class="text">Editar</span>
                                         </a>
-                                        <a  th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                                        <a data-toggle="tooltip" data-placement="top" title="Detalhes do chamado"  th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-secondary ">
                                                 <i class="fas fa-search"></i>
                                             </span>

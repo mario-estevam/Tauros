@@ -81,12 +81,12 @@
                                             <td th:text="${chamado.data}"></td>
                                             <td th:text="${chamado.userOpen.setor.nome}"></td>
                                             <td>
-                                                <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                                                <a data-toggle="tooltip" data-placement="top" title="Detalhes do chamado" th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-primary">
                                                 <i class="fas fa-search"></i>
                                             </span>
                                                 </a>
-                                                <a th:if="${chamado.status == 'ABERTO'}" th:href="@{'/atender/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
+                                                <a data-toggle="tooltip" data-placement="top" title="Atender chamado" th:if="${chamado.status == 'ABERTO'}" th:href="@{'/atender/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span class="icon text-success">
                                                 <i class="fas fa-tools"></i>
                                             </span>
@@ -123,7 +123,7 @@
                                         <td th:text="${chamado.userOpen.setor.nome}"></td>
                                         <td>
                                             <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none pt-2 ml-3">
-                                            <span class="icon text-primary">
+                                            <span data-toggle="tooltip" data-placement="top" title="Detalhes do chamado" class="icon text-primary">
                                                 <i class="fas fa-search"></i>
                                             </span>
                                             </a>
@@ -159,8 +159,8 @@
                                             <td th:text="${chamado.data}"></td>
                                             <td th:text="${chamado.userOpen.setor.nome}"></td>
                                             <td>
-                                                <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none pt-2 ml-3">
-                                            <span class="icon text-primary">
+                                                <a  th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none pt-2 ml-3">
+                                            <span data-toggle="tooltip" data-placement="top" title="Detalhes do chamado" class="icon text-primary">
                                                 <i class="fas fa-search"></i>
                                             </span>
                                                 </a>

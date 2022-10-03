@@ -63,6 +63,8 @@ public class SetorController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("usuario2", user);
         List<Setor> setores = service.getAll();
         modelAndView.addObject("setores", setores);
@@ -75,6 +77,8 @@ public class SetorController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("usuario2", user);
         Setor setor = service.findById(id);
         modelAndView.addObject("setor", setor);

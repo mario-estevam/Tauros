@@ -69,7 +69,7 @@
                                     <td th:text="${problema.setor.nome}"></td>
                                     <td>
                                         <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${problema.id}" th:href="@{'/problema/deletar/' + ${problema.id}}" class="text-decoration-none" >
-                                            <span class="icon text-danger">
+                                            <span  data-toggle="tooltip" data-placement="top" title="Excluir Problema" class="icon text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                         </a>
@@ -97,7 +97,7 @@
                                         </div>
                                         <!-- Modal end -->
                                         <a th:href="@{'/problema/editar/' + ${problema.id}}" class=" text-decoration-none ml-3">
-                                            <span class="icon text-primary">
+                                            <span  data-toggle="tooltip" data-placement="top" title="Editar Problema" class="icon text-primary">
                                                 <i class="fas fa-edit"></i>
                                             </span>
                                         </a>

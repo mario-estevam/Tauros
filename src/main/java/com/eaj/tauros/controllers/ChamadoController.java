@@ -152,6 +152,24 @@ public class ChamadoController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
+        modelAndView.addObject("usuario2", user);
+        List<Chamado> chamadosAndamento = chamadoService.meusAtendimentos(user,Constantes.STATUS_ANDAMENTO);
+        List<Chamado> chamadosAtrasados = chamadoService.meusAtendimentos(user,Constantes.STATUS_ATRASADO);
+        modelAndView.addObject("chamadosAndamento", chamadosAndamento);
+        modelAndView.addObject("chamadosAtrasados", chamadosAtrasados);
+        modelAndView.setViewName("chamado/atendimentos");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/responsavel/chamados/meus-atendimentos")
+    public ModelAndView meusAtendimentosRS(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         modelAndView.addObject("usuario2", user);
         List<Chamado> chamadosAndamento = chamadoService.meusAtendimentos(user,Constantes.STATUS_ANDAMENTO);
         List<Chamado> chamadosAtrasados = chamadoService.meusAtendimentos(user,Constantes.STATUS_ATRASADO);
@@ -162,13 +180,15 @@ public class ChamadoController {
     }
 
 
+
     @GetMapping(value = "/cadastro/chamado")
     public ModelAndView criaChamado(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
-
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         Chamado chamado = new Chamado();
         modelAndView.addObject("chamado",chamado);
 
@@ -261,17 +281,25 @@ public class ChamadoController {
         chamadoService.update(chamado);
         if(Objects.equals(user.getRole().getRole(), "ADMIN")){
             return "redirect:/chamados";
+        }else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+            return "redirect:/responsavel/chamados/meus-atendimentos";
         }else{
             return "redirect:/listar/chamados-operador";
         }
     }
 
 
-    @RequestMapping("/admin/finalizar-atendimento/{id}")
+    @RequestMapping("/finalizar-atendimento/{id}")
     public String finalizarAtendimento(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
         Chamado chamado = chamadoService.findById(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
         chamadoService.finalizar(chamado);
-        return "redirect:/admin/chamados/meus-atendimentos";
+        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+            return "redirect:/admin/chamados/meus-atendimentos";
+        }else{
+            return "redirect:/responsavel/chamados/meus-atendimentos";
+        }
     }
 
 

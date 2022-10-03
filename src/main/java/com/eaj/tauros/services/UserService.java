@@ -1,6 +1,7 @@
 package com.eaj.tauros.services;
 
 import com.eaj.tauros.models.Role;
+import com.eaj.tauros.models.Setor;
 import com.eaj.tauros.models.User;
 import com.eaj.tauros.repositories.RoleRepository;
 import com.eaj.tauros.repositories.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -52,12 +54,25 @@ public class UserService {
     }
 
     public List<User> getAll(){
-        return userRepository.findAllByActiveTrue();
+        return userRepository.findAllByActiveTrueAndDeleteIsNull();
+    }
+
+    public List<User> getAllBySetor(Setor setor){
+        return userRepository.findAllByActiveTrueAndDeleteIsNullAndSetor(setor);
+    }
+
+
+    public List<User> getAllInactives(){
+        return userRepository.findAllByDeleteIsNotNull();
+    }
+
+    public List<User> getAllInactivesBySetor(Setor setor){
+        return userRepository.findAllByDeleteIsNotNullAndSetor(setor);
     }
 
 
     public List<User> getAllPendentes(){
-        return userRepository.findAllByActiveFalse();
+        return userRepository.findAllByActiveFalseAndDeleteIsNull();
     }
 
     public User findUserByUserName(String userName) {
@@ -91,15 +106,28 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public Integer countAllPendentes(){
+        return userRepository.countAllByActiveFalseAndDeleteIsNull();
+    }
+
     public void ativarUsuario(Long id) {
         User user = userRepository.getById(id);
         user.setActive(true);
         userRepository.save(user);
     }
 
+    public void ativarUsuarioInativo(Long id) {
+        User user = userRepository.getById(id);
+        user.setActive(true);
+        user.setDelete(null);
+        userRepository.save(user);
+    }
+
     public void deletar(Long id) {
         User user = userRepository.getById(id);
         user.setActive(false);
+        LocalDate localDate = LocalDate.now();
+        user.setDelete(localDate);
         userRepository.save(user);
     }
 }
