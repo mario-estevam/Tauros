@@ -26,6 +26,10 @@ public class Chamado {
 
     private String descricao;
 
+    private String solucao;
+
+    private String descricaoProblema;
+
     private String data;
 
     private Date delete;

@@ -215,11 +215,52 @@
                                                 <i class="fas fa-search"></i>
                                             </span>
                                                 </a>
-                                                <a th:href="@{'/finalizar-atendimento/' + ${chamado.id}}" class="text-decoration-none ml-3">
-                                            <span data-toggle="tooltip" data-placement="top" title="Concluir chamado"  class="icon text-success">
-                                                <i class="fas fa-check"></i>
+
+                                                <a data-toggle="modal" th:attr="data-target='#confirmModal'+${chamado.id}" th:href="@{'/finalizar-atendimento/' + ${chamado.id} + ${chamado.descricaoProblema} + ${chamado.solucao} }" class="text-decoration-none align-content-center" >
+                                                <span class="icon text-success" data-toggle="tooltip" data-placement="top" title="Concluir Atendimento">
+                                                <i class="fas fa-check p-1"></i>
                                             </span>
                                                 </a>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" th:attr="id='confirmModal'+ ${chamado.id}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="confirmModalLabel">Chamado</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Finalizar atendimento
+                                                                <form th:action="@{'/finalizar-atendimento/' + ${chamado.id} }">
+                                                                    <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                                        <label class="form-label required">Descricao Do Problema:</label>
+                                                                        <textarea th:name="descricao" class="form-control"
+                                                                                  id="exampleFormControlTextarea4"
+                                                                                  placeholder="Descricao do problema"
+                                                                                  rows="4"></textarea>
+                                                                    </div>
+                                                                    <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                                        <label class="form-label required">Solução:</label>
+                                                                        <textarea th:name="solucao" class="form-control"
+                                                                                  id="exampleFormControlTextarea5"
+                                                                                  placeholder="Descricao da solução"
+                                                                                  rows="4"></textarea>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                                        <button type="submit" href="newRecordForm.html" class="btn btn-primary">Confirmar</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Modal end -->
                                             </td>
                                         </tr>
                                         </tbody>

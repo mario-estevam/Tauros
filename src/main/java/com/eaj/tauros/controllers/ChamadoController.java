@@ -290,8 +290,11 @@ public class ChamadoController {
 
 
     @RequestMapping("/finalizar-atendimento/{id}")
-    public String finalizarAtendimento(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
+    public String finalizarAtendimento(@PathVariable(name = "id") Long id, @RequestParam(name = "descricao", required = false) String descricaoProblema,
+                                       @RequestParam(name = "solucao", required = false) String solucao, RedirectAttributes redirectAttributes){
         Chamado chamado = chamadoService.findById(id);
+        chamado.setSolucao(solucao);
+        chamado.setDescricaoProblema(descricaoProblema);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         chamadoService.finalizar(chamado);
