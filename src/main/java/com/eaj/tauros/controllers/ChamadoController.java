@@ -42,12 +42,8 @@ public class ChamadoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
-
-
         List<Chamado> chamados = chamadoService.getAll();
         modelAndView.addObject("chamados", chamados);
-
-
         modelAndView.setViewName("chamado/chamados");
         return modelAndView;
     }

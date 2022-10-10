@@ -145,26 +145,27 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             Finalizar atendimento
-                                                            <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
-                                                                <label class="form-label required">Descricao Do Problema:</label>
-                                                                <textarea th:value="${chamado.descricaoProblema}" class="form-control"
-                                                                          id="exampleFormControlTextarea4"
-                                                                          placeholder="Descricao do problema"
-                                                                          rows="4"></textarea>
-                                                            </div>
-                                                            <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
-                                                                <label class="form-label required">Solução:</label>
-                                                                <textarea th:value="${chamado.solucao}" class="form-control"
-                                                                          id="exampleFormControlTextarea5"
-                                                                          placeholder="Descricao da solução"
-                                                                          rows="4"></textarea>
-                                                            </div>
+                                                            <form th:action="@{'/finalizar-atendimento/' + ${chamado.id} }">
+                                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                                    <label class="form-label required">Descricao Do Problema:</label>
+                                                                    <textarea th:name="descricao" class="form-control"
+                                                                              id="exampleFormControlTextarea4"
+                                                                              placeholder="Descricao do problema"
+                                                                              rows="4"></textarea>
+                                                                </div>
+                                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                                    <label class="form-label required">Solução:</label>
+                                                                    <textarea th:name="solucao" class="form-control"
+                                                                              id="exampleFormControlTextarea5"
+                                                                              placeholder="Descricao da solução"
+                                                                              rows="4"></textarea>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                                    <button type="submit" href="newRecordForm.html" class="btn btn-primary">Confirmar</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                                            <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/finalizar-atendimento/' + ${chamado.id}">Confirmar</a>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- Modal end -->
@@ -216,33 +217,34 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="confirmModalLabel">Chamado</h5>
+                                                                <h5 class="modal-title" id="confirmModalLabel2">Chamado</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 Finalizar atendimento
-                                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
-                                                                    <label class="form-label required">Descricao Do Problema:</label>
-                                                                    <textarea th:value="${chamado.descricaoProblema}" class="form-control"
-                                                                              id="exampleFormControlTextarea6"
-                                                                              placeholder="Descricao do problema"
-                                                                              rows="4"></textarea>
-                                                                </div>
-                                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
-                                                                    <label class="form-label required">Solução:</label>
-                                                                    <textarea th:value="${chamado.solucao}" class="form-control"
-                                                                              id="exampleFormControlTextarea7"
-                                                                              placeholder="Descricao da solução"
-                                                                              rows="4"></textarea>
-                                                                </div>
+                                                                <form th:action="@{'/finalizar-atendimento/' + ${chamado.id} }">
+                                                                    <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                                        <label class="form-label required">Descricao Do Problema:</label>
+                                                                        <textarea th:name="descricao" class="form-control"
+                                                                                  id="exampleFormControlTextarea6"
+                                                                                  placeholder="Descricao do problema"
+                                                                                  rows="4"></textarea>
+                                                                    </div>
+                                                                    <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
+                                                                        <label class="form-label required">Solução:</label>
+                                                                        <textarea th:name="solucao" class="form-control"
+                                                                                  id="exampleFormControlTextarea7"
+                                                                                  placeholder="Descricao da solução"
+                                                                                  rows="4"></textarea>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                                        <button type="submit" href="newRecordForm.html" class="btn btn-primary">Confirmar</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                                                <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/finalizar-atendimento/' + ${chamado.id}">Confirmar</a>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- Modal end -->
