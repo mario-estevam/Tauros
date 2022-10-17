@@ -42,7 +42,9 @@ public class ResponsavelPorSetorController {
         Integer totalAbertos = chamadoService.totalChamadosPorSetorEStatus(Constantes.STATUS_ABERTO,setor);
         List<Chamado> chamadosEmAndamento = chamadoService.findByStatusAndSetor(Constantes.STATUS_ANDAMENTO,setor);
         List<Chamado> chamadosEmAberto = chamadoService.findByStatusAndSetor(Constantes.STATUS_ABERTO,setor);
+        List<Chamado> chamadosConcluidos = chamadoService.findByStatusAndSetor(Constantes.STATUS_CONCLUIDO,setor);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosConcluidos", chamadosConcluidos);
         getModAndViewsForChamados(modelAndView, totalConluidos, totalEmAndamento, totalEmAtraso, totalAbertos, chamadosEmAberto, "chamadosEmAberto");
         modelAndView.setViewName("indexResponsavelSetor");
         return modelAndView;

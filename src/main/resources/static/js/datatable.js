@@ -25,3 +25,12 @@ $(document).ready(function () {
         paging: true,
     });
 });
+$(document).ready(function () {
+    $('#table_id4').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
+        },
+        "searching": true,
+        paging: true,
+    });
+});

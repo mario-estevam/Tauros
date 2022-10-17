@@ -56,8 +56,10 @@ public class ChamadoController {
         List<Chamado> chamadosAbertos = chamadoService.meusChamados(user, Constantes.STATUS_ABERTO);
         List<Chamado> chamadosEmAndamento = chamadoService.meusChamados(user,Constantes.STATUS_ANDAMENTO);
         List<Chamado> chamadosAtrasados = chamadoService.meusChamados(user,Constantes.STATUS_ATRASADO);
+        List<Chamado> chamadosConcluidos = chamadoService.meusChamados(user,Constantes.STATUS_CONCLUIDO);
         modelAndView.addObject("chamadosAbertos", chamadosAbertos);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosConcluidos", chamadosConcluidos);
         modelAndView.addObject("chamadosAtrasados", chamadosAtrasados);
         if(user != null){
             modelAndView.addObject("usuario2", user);
@@ -113,12 +115,15 @@ public class ChamadoController {
         Integer totalAbertos = chamadoService.totalChamadosPorSetorEStatus(Constantes.STATUS_ABERTO,user.getSetor());
         List<Chamado> chamadosEmAndamento = chamadoService.findByStatusAndUser(Constantes.STATUS_ANDAMENTO, user);
         List<Chamado> chamadosEmAberto = chamadoService.findByStatusAndSetor(Constantes.STATUS_ABERTO, user.getSetor());
-        List<Chamado> chamadosEmAtraso = chamadoService.findByStatusAndSetor(Constantes.STATUS_ATRASADO, user.getSetor());
+        List<Chamado> chamadosEmAtraso = chamadoService.findByStatusAndSetorAndUserClose(Constantes.STATUS_ATRASADO, user.getSetor(), user);
+        List<Chamado> chamadosConcluidos= chamadoService.findByStatusAndSetorAndUserClose(Constantes.STATUS_CONCLUIDO, user.getSetor(), user);
+
         modelAndView.addObject("totalConluidos", totalConluidos);
         modelAndView.addObject("totalEmAtraso", totalEmAtraso);
         modelAndView.addObject("totalAbertos", totalAbertos);
         modelAndView.addObject("totalEmAndamento", totalEmAndamento);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosConcluidos", chamadosConcluidos);
         modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
         modelAndView.addObject("chamadosEmAtraso",chamadosEmAtraso);
         modelAndView.setViewName("indexOperador");
@@ -302,7 +307,9 @@ public class ChamadoController {
         chamadoService.finalizar(chamado);
         if(Objects.equals(user.getRole().getRole(), "ADMIN")){
             return "redirect:/admin/chamados/meus-atendimentos";
-        }else{
+        }else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
+            return "redirect:/listar/chamados-operador";
+        } else{
             return "redirect:/responsavel/chamados/meus-atendimentos";
         }
     }

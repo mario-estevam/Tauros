@@ -128,6 +128,10 @@ public class ChamadoService {
         return repository.findAllByStatusAndSetor(status,setor);
     }
 
+    public List<Chamado> findByStatusAndSetorAndUserClose(String status, Setor setor, User user){
+        return repository.findAllByStatusAndSetorAndUserClose(status,setor, user);
+    }
+
     public List<Chamado> findByStatusAndUser(String status, User user){
         return repository.findAllByStatusAndUserClose(status,user);
     }

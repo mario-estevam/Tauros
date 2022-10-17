@@ -19,5 +19,6 @@ public interface ChamadoRepository extends JpaRepository<Chamado,Long> {
     List<Chamado> findAllByStatus(String status);
     List<Chamado> findAllByStatusAndUserClose(String status, User user);
     List<Chamado> findAllByStatusAndSetor(String status, Setor setor);
+    List<Chamado> findAllByStatusAndSetorAndUserClose(String status, Setor setor, User user);
     Chamado findByUserOpenAndId(User user, Long id);
 }
