@@ -85,7 +85,9 @@ public class ChamadoController {
         modelAndView.addObject("count", count);
         List<Chamado> chamadosEmAndamento = chamadoService.findByStatus(Constantes.STATUS_ANDAMENTO);
         List<Chamado> chamadosEmAberto = chamadoService.findByStatus(Constantes.STATUS_ABERTO);
+        List<Chamado> chamadosConcluidos = chamadoService.findByStatus(Constantes.STATUS_CONCLUIDO);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
+        modelAndView.addObject("chamadosConcluidos", chamadosConcluidos);
         getModAndViewsForChamados(modelAndView, totalConluidos, totalEmAndamento, totalEmAtraso, totalAbertos, chamadosEmAberto, "chamadosEmAberto");
         modelAndView.setViewName("indexAdmin");
         return modelAndView;
