@@ -81,6 +81,8 @@ public class ChamadoController {
         Integer totalEmAndamento = chamadoService.totalEmAndamento();
         Integer totalEmAtraso = chamadoService.totalEmAtraso();
         Integer totalAbertos = chamadoService.totalAbertos();
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         List<Chamado> chamadosEmAndamento = chamadoService.findByStatus(Constantes.STATUS_ANDAMENTO);
         List<Chamado> chamadosEmAberto = chamadoService.findByStatus(Constantes.STATUS_ABERTO);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
@@ -128,6 +130,8 @@ public class ChamadoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
         Integer totalConluidos = chamadoService.totalConcluidos();
         Integer totalEmAndamento = chamadoService.totalEmAndamento();
         Integer totalEmAtraso = chamadoService.totalEmAtraso();

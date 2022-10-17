@@ -130,4 +130,9 @@ public class UserService {
         user.setDelete(localDate);
         userRepository.save(user);
     }
+
+    public void deletarPermanente(Long id) {
+        User user = userRepository.getById(id);
+        userRepository.delete(user);
+    }
 }

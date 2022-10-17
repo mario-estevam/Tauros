@@ -206,6 +206,7 @@ public class UserController {
             modelAndView.setViewName("usuario/atualizar-usuario");
         }else{
             modelAndView.addObject("successMessage", "Usuario atualizado com sucesso");
+            userService.saveUser(user);
             modelAndView.addObject("usuario",user2);
             modelAndView.setViewName("usuario/atualizar-usuario");
         }
@@ -251,6 +252,7 @@ public class UserController {
             redirectAttributes.addAttribute("email", "Email já foi cadastrado");
             return "redirect:/cadastro/usuario";
         } else {
+            userService.saveUserPublic(user);
             redirectAttributes.addAttribute("msg", "Usuário Cadastrado com sucesso!");
             return "redirect:/login";
         }
@@ -292,5 +294,12 @@ public class UserController {
         userService.deletar(id);
         redirectAttributes.addAttribute("msg", "Usuário desabilitado com sucesso!");
         return "redirect:/admin/listar/usuarios";
+    }
+
+    @GetMapping(value={"/admin/delete/usuario/{id}"})
+    public String dodeleteUser(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
+        userService.deletarPermanente(id);
+        redirectAttributes.addAttribute("msg", "Usuário deletado com sucesso!");
+        return "redirect:/admin/listar/usuarios-pendentes";
     }
 }

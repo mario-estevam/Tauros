@@ -97,6 +97,35 @@
                                             </div>
                                         </div>
                                         <!-- Modal end -->
+
+                                        <a data-toggle="modal" th:attr="data-target='#confirmModal2'+${usuario.id}" th:href="@{'/admin/delete/usuario/' + ${usuario.id}}" class="text-decoration-none align-content-center" >
+                                            <span  data-toggle="tooltip" data-placement="top" title="Excluir usuário" class="icon text-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </span>
+                                        </a>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:attr="id='confirmModal2'+ ${usuario.id}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel2">Excluir usuário</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Deseja excluir este usuário? está ação não poderá ser desfeita.
+                                                        <li th:utext="${usuario.nome}"></li>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                        <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/admin/delete/usuario/'+${usuario.id}">Sim</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal end -->
                                     </td>
                                 </tr>
                                 </tbody>
