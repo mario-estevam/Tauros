@@ -153,7 +153,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/admin/editar/usuario/{id}")
+    @GetMapping(value = "/editar/usuario/{id}")
     public ModelAndView updateUser(@PathVariable("id") Long id){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -289,11 +289,19 @@ public class UserController {
         return "redirect:/admin/listar/usuarios";
     }
 
-    @GetMapping(value={"/admin/deletar/usuario/{id}"})
+    @GetMapping(value={"/deletar/usuario/{id}"})
     public String desabilitarUsuario(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
         userService.deletar(id);
-        redirectAttributes.addAttribute("msg", "Usuário desabilitado com sucesso!");
-        return "redirect:/admin/listar/usuarios";
+        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+            redirectAttributes.addAttribute("msg", "Usuário desabilitado com sucesso!");
+            return "redirect:/admin/listar/usuarios";
+        } else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+            redirectAttributes.addAttribute("msg", "Usuário desabilitado com sucesso!");
+            return "redirect:/responsavel/listar/usuarios";
+        }
+        return "redirect:/index";
     }
 
     @GetMapping(value={"/admin/delete/usuario/{id}"})

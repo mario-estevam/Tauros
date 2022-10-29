@@ -49,6 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/problemas/**").hasAnyAuthority("ADMIN","RESPONSAVELSETOR")
                 .antMatchers("/chamados").hasAuthority("ADMIN")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/deletar/usuario/**").hasAnyAuthority("ADMIN","RESPONSAVELSETOR")
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
