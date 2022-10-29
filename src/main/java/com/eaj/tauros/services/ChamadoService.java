@@ -64,7 +64,7 @@ public class ChamadoService {
 
     public List<Chamado> getAll(){
         List<Chamado> chamados = repository.findAllByDeleteIsNull();
-        chamados.forEach(obj -> {
+        chamados.stream().filter(e-> e.getStatus().equals(Constantes.STATUS_ANDAMENTO)).forEach(obj -> {
             try {
                 SimpleDateFormat data = new SimpleDateFormat(Constantes.FORMATADATA);
                 String date = data.format(new Date());
