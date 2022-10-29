@@ -48,11 +48,11 @@
                     <div class="card-body">
                         <p>
                             <strong>Status:</strong>
-                            <h5 th:text="${chamado.status}"> </h5>
+                            <h5 th:text="${#strings.toLowerCase(chamado.status)}"> </h5>
                         </p>
                         <p>
                             <strong>Problema:</strong>
-                        <h5 th:text="${chamado.problema.nome}"> </h5>
+                        <h5 th:text="${#strings.toLowerCase(chamado.problema.nome)}"> </h5>
                         </p>
                         <p>
                             <strong>Requisitante:</strong>
@@ -69,21 +69,29 @@
                         </p>
                         <p>
                             <strong>Descricao:</strong>
-                        <h5 th:text="${chamado.descricao}"> </h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text" th:text="${chamado.descricao}"> </p>
+                            </div>
+                        </div>
+                        </p>
+                        <p>
+                            <strong>Descricao dada pelo operador:</strong>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text" th:text="${chamado.descricaoProblema}"> </p>
+                            </div>
+                        </div>
                         </p>
                         <p>
                             <strong>Setor:</strong>
-                        <h5 th:text="${chamado.setor.nome}"> </h5>
+                        <h5 th:text="${#strings.toLowerCase(chamado.setor.nome)}"> </h5>
                         </p>
                     </div>
+                </div>
         </div>
         <!-- End of Main Content -->
 
-        <!-- Footer -->
-        <footer th:replace="fragments/footer :: fragment-footer" >
-
-        </footer>
-        <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -103,6 +111,12 @@
 </div>
 
 <th:block th:replace="fragments/head-page :: body-final"></th:block>
+
 </body>
 
+<!-- Footer -->
+<footer th:replace="fragments/footer :: fragment-footer" >
+
+</footer>
+<!-- End of Footer -->
 </html>
