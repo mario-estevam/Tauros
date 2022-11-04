@@ -211,6 +211,7 @@
                                     <th>Requisitante</th>
                                     <th>Data de abertura</th>
                                     <th>Setor Requisitante</th>
+                                    <th>Detalhes</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -221,6 +222,12 @@
                                     <td th:text="${chamado.userOpen.nome}"></td>
                                     <td th:text="${chamado.data}"></td>
                                     <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                    <td>
+                                        <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none pt-2 ml-3">
+                                            <span class="icon text-primary">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </a>
                                 </tr>
                                 </tbody>
 

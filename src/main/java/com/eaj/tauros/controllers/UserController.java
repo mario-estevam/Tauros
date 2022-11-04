@@ -304,10 +304,10 @@ public class UserController {
         return "redirect:/index";
     }
 
-    @GetMapping(value={"/admin/delete/usuario/{id}"})
+    @GetMapping(value={"/admin/deletar/usuario/{id}"})
     public String dodeleteUser(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes){
         userService.deletarPermanente(id);
         redirectAttributes.addAttribute("msg", "Usuário deletado com sucesso!");
-        return "redirect:/admin/listar/usuarios-pendentes";
+        return "redirect:/admin/listar/usuarios";
     }
 }

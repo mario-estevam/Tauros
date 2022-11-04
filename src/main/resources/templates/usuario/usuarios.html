@@ -83,7 +83,7 @@
                                             <td th:unless="(${usuario.setor})">----</td>
                                             <td th:text="${usuario.email}"></td>
                                             <td>
-                                                <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${usuario.id}" th:href="@{'/admin/deletar/usuario/' + ${usuario.id}}" class="text-decoration-none" >
+                                                <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${usuario.id}" th:href="@{'/deletar/usuario/' + ${usuario.id}}" class="text-decoration-none" >
                                             <span class="icon text-danger">
                                                 <i  data-toggle="tooltip" data-placement="top" title="Excluir usuário" class="fas fa-trash"></i>
                                             </span>
@@ -105,7 +105,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                                                <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/admin/deletar/usuario/'+${usuario.id}">Sim</a>
+                                                                <a href="newRecordForm.html" class="btn btn-primary" th:attr="href='/deletar/usuario/'+${usuario.id}">Sim</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -199,7 +199,6 @@
 
 <!-- Logout Modal-->
 <div th:replace="fragments/nav-bar :: fragment-logout" >
-
 </div>
 </div>
 
