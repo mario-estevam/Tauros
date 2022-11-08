@@ -10,10 +10,10 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
     User findByUserName(String userName);
-    List<User> findAllByActiveTrueAndDeleteIsNull();
-    List<User> findAllByActiveTrueAndDeleteIsNullAndSetor(Setor setor);
+    List<User> findAllByAtivoTrueAndDeleteIsNull();
+    List<User> findAllByAtivoTrueAndDeleteIsNullAndSetor(Setor setor);
     List<User> findAllByDeleteIsNotNull();
     List<User> findAllByDeleteIsNotNullAndSetor(Setor setor);
-    List<User> findAllByActiveFalseAndDeleteIsNull();
-    Integer countAllByActiveFalseAndDeleteIsNull();
+    List<User> findAllByAtivoFalseAndDeleteIsNull();
+    Integer countAllByAtivoFalseAndDeleteIsNull();
 }

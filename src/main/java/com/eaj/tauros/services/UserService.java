@@ -3,31 +3,28 @@ package com.eaj.tauros.services;
 import com.eaj.tauros.models.Role;
 import com.eaj.tauros.models.Setor;
 import com.eaj.tauros.models.User;
-import com.eaj.tauros.repositories.RoleRepository;
+
 import com.eaj.tauros.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Autowired
     public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository,
                        BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -54,11 +51,11 @@ public class UserService {
     }
 
     public List<User> getAll(){
-        return userRepository.findAllByActiveTrueAndDeleteIsNull();
+        return userRepository.findAllByAtivoTrueAndDeleteIsNull();
     }
 
     public List<User> getAllBySetor(Setor setor){
-        return userRepository.findAllByActiveTrueAndDeleteIsNullAndSetor(setor);
+        return userRepository.findAllByAtivoTrueAndDeleteIsNullAndSetor(setor);
     }
 
 
@@ -72,7 +69,7 @@ public class UserService {
 
 
     public List<User> getAllPendentes(){
-        return userRepository.findAllByActiveFalseAndDeleteIsNull();
+        return userRepository.findAllByAtivoFalseAndDeleteIsNull();
     }
 
     public User findUserByUserName(String userName) {
@@ -89,10 +86,10 @@ public class UserService {
 
     public User saveUser(User user) {
         user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
-        user.setRepetirSenha(bCryptPasswordEncoder.encode(user.getRepetirSenha()));
+        user.setConfirmacaoSenha(bCryptPasswordEncoder.encode(user.getConfirmacaoSenha()));
         Role userRole = user.getRole();
-        user.setActive(true);
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setAtivo(true);
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         return userRepository.save(user);
     }
 
@@ -102,34 +99,34 @@ public class UserService {
 
     public User saveUserPublic(User user) {
         user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
-        user.setRepetirSenha(bCryptPasswordEncoder.encode(user.getRepetirSenha()));
+        user.setConfirmacaoSenha(bCryptPasswordEncoder.encode(user.getConfirmacaoSenha()));
         Role userRole = user.getRole();
-        user.setActive(Boolean.FALSE);
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setAtivo(Boolean.FALSE);
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
 
         return userRepository.save(user);
     }
 
     public Integer countAllPendentes(){
-        return userRepository.countAllByActiveFalseAndDeleteIsNull();
+        return userRepository.countAllByAtivoFalseAndDeleteIsNull();
     }
 
     public void ativarUsuario(Long id) {
         User user = userRepository.getById(id);
-        user.setActive(true);
+        user.setAtivo(true);
         userRepository.save(user);
     }
 
     public void ativarUsuarioInativo(Long id) {
         User user = userRepository.getById(id);
-        user.setActive(true);
+        user.setAtivo(true);
         user.setDelete(null);
         userRepository.save(user);
     }
 
     public void deletar(Long id) {
         User user = userRepository.getById(id);
-        user.setActive(false);
+        user.setAtivo(false);
         LocalDate localDate = LocalDate.now();
         user.setDelete(localDate);
         userRepository.save(user);

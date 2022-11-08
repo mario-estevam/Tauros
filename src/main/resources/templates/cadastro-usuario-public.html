@@ -57,7 +57,7 @@
                                                        id="exampleInputPassword" placeholder="Senha">
                                             </div>
                                             <div class="col-sm-6">
-                                                <input  th:field="${usuario.repetirSenha}" type="password" class="form-control "
+                                                <input  th:field="${usuario.confirmacaoSenha}" type="password" class="form-control "
                                                         id="exampleRepeatPassword" placeholder="Repetir Senha">
                                             </div>
                                             <span class="text-danger ml-3" th:text="${#request.getParameter('senhas')}"></span>

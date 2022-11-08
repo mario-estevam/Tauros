@@ -49,7 +49,7 @@ public class UserController {
     public String index(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        if(Boolean.FALSE.equals(user.getActive())){
+        if(Boolean.FALSE.equals(user.getAtivo())){
             return "redirect:/logout";
         }
         if(Objects.equals(user.getRole().getRole(), "ADMIN")){
@@ -70,7 +70,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         if(Objects.equals(user.getRole().getRole(), "ADMIN")){
-            return "redirect:/listar/chamados-admin";
+            return "redirect:/chamados";
         } else if(Objects.equals(user.getRole().getRole(), "REQUISITANTE")){
             return "redirect:/meus-chamados";
         } else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
@@ -109,7 +109,7 @@ public class UserController {
         modelAndView.addObject("usuario2", user2);
         Integer count = userService.countAllPendentes();
         modelAndView.addObject("count", count);
-            Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getRepetirSenha());
+            Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getConfirmacaoSenha());
             Boolean emailConfirm = userService.findUserByEmail(user.getEmail());
             Boolean userNameConfirm = userService.findUserUsernameBoolean(user.getUserName());
             if(!confirm){
@@ -193,7 +193,7 @@ public class UserController {
         modelAndView.addObject("setores", setores);
         modelAndView.addObject("usuario2", user2);
         modelAndView.addObject("usuario", user2);
-        Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getRepetirSenha());
+        Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getConfirmacaoSenha());
 
         if(Boolean.FALSE.equals(confirm)){
             modelAndView.addObject("senhas","as senhas não coincidem");
@@ -269,7 +269,7 @@ public class UserController {
     @PostMapping(value = "/cadastro/usuario")
     public String postForUserPublic(@Valid User user, RedirectAttributes redirectAttributes ) {
 
-        Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getRepetirSenha());
+        Boolean confirm = userService.confirmarSenha(user.getSenha(),user.getConfirmacaoSenha());
         Boolean emailConfirm = userService.findUserByEmail(user.getEmail());
         Boolean userNameConfirm = userService.findUserUsernameBoolean(user.getUserName());
 

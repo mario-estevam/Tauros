@@ -36,9 +36,9 @@ public class User {
     private String senha;
 
     @NotBlank
-    private String repetirSenha;
+    private String confirmacaoSenha;
 
-    private Boolean active;
+    private Boolean ativo;
 
     private LocalDate delete;
 
@@ -48,10 +48,10 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "role_id")
-    Role role;
+    private Role role;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_setor")
-    Setor setor;
+    private Setor setor;
 
 }
