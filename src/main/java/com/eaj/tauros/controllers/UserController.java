@@ -220,6 +220,40 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/alterar/usuario/{id}")
+    public ModelAndView alterar(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<Setor> setores = setorService.getAll();
+        Integer count = userService.countAllPendentes();
+        modelAndView.addObject("count", count);
+        modelAndView.addObject("setores", setores);
+        User user2 = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("usuario2", user2);
+        User user = userService.findById(id);
+        modelAndView.addObject("usuario", user);
+        modelAndView.setViewName("usuario/alterar-usuario");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/alterar/usuario")
+    public ModelAndView alterarSave(User user){
+
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user2 = userService.findUserByUserName(auth.getName());
+        List<Setor> setores = setorService.getAll();
+        modelAndView.addObject("setores", setores);
+        modelAndView.addObject("usuario2", user2);
+        modelAndView.addObject("usuario", user2);
+        modelAndView.addObject("successMessage", "Usuario atualizado com sucesso");
+        userService.updateUser(user);
+        modelAndView.addObject("usuario",user2);
+        modelAndView.setViewName("usuario/alterar-usuario");
+
+        return modelAndView;
+    }
+
 
     @GetMapping(value="/cadastro/usuario")
     public ModelAndView createUserPublic(){

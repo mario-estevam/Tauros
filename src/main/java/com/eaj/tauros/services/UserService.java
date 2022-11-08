@@ -96,6 +96,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
     public User saveUserPublic(User user) {
         user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
         user.setRepetirSenha(bCryptPasswordEncoder.encode(user.getRepetirSenha()));
