@@ -82,6 +82,18 @@ public class UserController {
         }
     }
 
+    @GetMapping(value={"/voltar-usuarios"})
+    public String voltarUsuarios(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+            return "redirect:/admin/listar/usuarios";
+        } else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+            return "redirect:/responsavel/listar/usuarios";
+        } else{
+            return "redirect:/logout";
+        }
+    }
 
     @GetMapping(value="/admin/cadastro/usuario")
     public ModelAndView createUser(){
