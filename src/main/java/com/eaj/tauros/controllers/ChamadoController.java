@@ -198,10 +198,6 @@ public class ChamadoController {
         modelAndView.addObject("count", count);
         Chamado chamado = new Chamado();
         modelAndView.addObject("chamado",chamado);
-
-        List<Setor> setores = setorService.getAll();
-        modelAndView.addObject("setores", setores);
-
         List<Problema> problemas = problemaService.getAll();
         modelAndView.addObject("problemas", problemas);
 
@@ -264,10 +260,8 @@ public class ChamadoController {
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
         chamado.setUserOpen(user);
+        chamado.setSetor(user.getSetor());
         chamadoService.insert(chamado);
-        List<Setor> setores = setorService.getAll();
-        modelAndView.addObject("setores", setores);
-
         List<Problema> problemas = problemaService.getAll();
         modelAndView.addObject("problemas", problemas);
         modelAndView.addObject("successMessage", "Chamado cadastrado com sucesso");

@@ -48,19 +48,12 @@
                                               method="post" autocomplete="off" role="form">
                                             <div class="form-group row">
                                                 <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
-                                                    <label class="form-label required">Descricao</label>
+                                                    <label class="form-label required">Descrição</label>
                                                     <textarea th:field="${chamado.descricao}" class="form-control"
                                                               id="exampleFormControlTextarea4"
-                                                              placeholder="Descricao do chamado"
+                                                              placeholder="Descrição do chamado"
                                                               rows="6"
                                                               ></textarea>
-                                                </div>
-                                                <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
-                                                    <label class="form-label required">Setor</label>
-                                                    <select  class="custom-select" id="setor" th:field="${chamado.setor}" required>
-                                                        <option th:each="setor:${setores}" th:text="${setor.nome}"  th:value="${setor.id}"></option>
-                                                    </select>
-                                                    <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
                                                 </div>
                                                 <div class="col-sm-12 mb-3 mb-sm-0 mt-2">
                                                     <label class="form-label required">Problema</label>

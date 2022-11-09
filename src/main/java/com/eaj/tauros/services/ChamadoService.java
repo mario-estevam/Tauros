@@ -17,11 +17,11 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class ChamadoService {
 
-    ChamadoRepository repository;
+    private final ChamadoRepository repository;
 
-
-    @Autowired
-    private void setChamadoRepository(ChamadoRepository repository){ this.repository = repository; }
+    public ChamadoService(ChamadoRepository repository) {
+        this.repository = repository;
+    }
 
     public Chamado insert(Chamado chamado){
         SimpleDateFormat data = new SimpleDateFormat(Constantes.FORMATADATA);

@@ -76,10 +76,20 @@
                         </div>
                         </p>
                         <p>
-                            <strong>Descricao dada pelo operador:</strong>
+                            <strong>Descrição dada pelo operador:</strong>
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-text" th:text="${chamado.descricaoProblema}"> </p>
+                                <p class="card-text" th:if="${chamado.descricaoProblema != null}" th:text="${chamado.descricaoProblema}"> </p>
+                                <p class="card-text" th:unless="${chamado.descricaoProblema != null}">Sem descrição dada pelo operador</p>
+                            </div>
+                        </div>
+                        </p>
+                        <p>
+                            <strong>Solução dada pelo operador:</strong>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text" th:if="${chamado.solucao != null}" th:text="${chamado.solucao}"> </p>
+                                <p class="card-text" th:unless="${chamado.solucao != null}">O chamado ainda não foi solucionado</p>
                             </div>
                         </div>
                         </p>
