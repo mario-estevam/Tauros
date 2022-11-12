@@ -77,10 +77,10 @@
                                         <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
-                                        <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>
-                                        <td th:unless="${chamado.userClose != null}"> Sem operador </td>
+                                        <td th:if="${chamado.usuarioAtendimento != null}" th:text="${chamado.usuarioAtendimento.nome}"></td>
+                                        <td th:unless="${chamado.usuarioAtendimento != null}"> Sem operador </td>
                                         <td th:text="${chamado.data}"></td>
-                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                         <td>
                                             <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${chamado.id}" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none" >
                                             <span class="icon text-danger">
@@ -143,10 +143,10 @@
                                         <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
-                                        <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>
-                                        <td th:unless="${chamado.userClose != null}"> Sem operador </td>
+                                        <td th:if="${chamado.usuarioAtendimento != null}" th:text="${chamado.usuarioAtendimento.nome}"></td>
+                                        <td th:unless="${chamado.usuarioAtendimento != null}"> Sem operador </td>
                                         <td th:text="${chamado.data}"></td>
-                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                         <td>
                                             <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${chamado.id}" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none" >
                                             <span class="icon text-danger">
@@ -209,9 +209,9 @@
                                         <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
-                                        <td th:text="${chamado.userOpen.nome}"></td>
+                                        <td th:text="${chamado.usuarioAbertura.nome}"></td>
                                         <td th:text="${chamado.data}"></td>
-                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                         <td>
                                             <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span data-toggle="tooltip" data-placement="top" title="Detalhes do chamado" class="icon text-primary">
@@ -242,10 +242,10 @@
                                         <td th:text="${chamado.id}"></td>
                                         <td th:text="${chamado.status}"></td>
                                         <td th:text="${chamado.problema.nome}"></td>
-                                        <td th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"></td>
-                                        <td th:unless="${chamado.userClose != null}"> Sem operador </td>
+                                        <td th:if="${chamado.usuarioAtendimento != null}" th:text="${chamado.usuarioAtendimento.nome}"></td>
+                                        <td th:unless="${chamado.usuarioAtendimento != null}"> Sem operador </td>
                                         <td th:text="${chamado.data}"></td>
-                                        <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                        <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                         <td>
                                             <a data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${chamado.id}" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none" >
                                             <span class="icon text-danger">

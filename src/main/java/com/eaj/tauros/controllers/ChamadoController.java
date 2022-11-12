@@ -216,7 +216,7 @@ public class ChamadoController {
         modelAndView.addObject("setores", setores);
         List<Problema> problemas = problemaService.getAll();
         modelAndView.addObject("problemas", problemas);
-        if(user.getRole().getRole().equals("ADMIN")){
+        if(user.getFuncao().getDescricao().equals("ADMIN")){
             Chamado chamado = chamadoService.findById(id);
             modelAndView.addObject("chamado", chamado);
         }else{
@@ -259,7 +259,7 @@ public class ChamadoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
-        chamado.setUserOpen(user);
+        chamado.setUsuarioAbertura(user);
         chamado.setSetor(user.getSetor());
         chamadoService.insert(chamado);
         List<Problema> problemas = problemaService.getAll();
@@ -278,11 +278,11 @@ public class ChamadoController {
         Chamado chamado = chamadoService.findById(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        chamado.setUserClose(user);
+        chamado.setUsuarioAtendimento(user);
         chamadoService.update(chamado);
-        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+        if(Objects.equals(user.getFuncao().getDescricao(), "ADMIN")){
             return "redirect:/chamados";
-        }else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+        }else if(Objects.equals(user.getFuncao().getDescricao(), "RESPONSAVELSETOR")){
             return "redirect:/responsavel/chamados/meus-atendimentos";
         }else{
             return "redirect:/listar/chamados-operador";
@@ -299,9 +299,9 @@ public class ChamadoController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         chamadoService.finalizar(chamado);
-        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+        if(Objects.equals(user.getFuncao().getDescricao(), "ADMIN")){
             return "redirect:/admin/chamados/meus-atendimentos";
-        }else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
+        }else if(Objects.equals(user.getFuncao().getDescricao(), "OPERADOR")){
             return "redirect:/listar/chamados-operador";
         } else{
             return "redirect:/responsavel/chamados/meus-atendimentos";

@@ -64,7 +64,7 @@
                                 <tr th:each="usuario : ${usuarios}">
                                     <td th:text="${usuario.nome}"></td>
                                     <td th:text="${usuario.userName}"></td>
-                                    <td th:text="${usuario.role.getRole()}"></td>
+                                    <td th:text="${usuario.funcao.descricao}"></td>
                                     <td th:if="(${usuario.setor})" th:text="${usuario.setor.getNome()}"></td>
                                     <td th:unless="(${usuario.setor})">----</td>
                                     <td th:text="${usuario.email}"></td>

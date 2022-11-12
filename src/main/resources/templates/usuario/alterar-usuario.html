@@ -49,13 +49,14 @@
                                                 <input hidden th:field="${usuario.id}">
                                                 <input hidden th:field="${usuario.userName}">
                                                 <input hidden th:field="${usuario.nome}">
+                                                <input hidden th:field="${usuario.ativo}">
                                                 <input hidden th:field="${usuario.email}">
                                                 <input hidden th:field="${usuario.senha}">
                                                 <input hidden th:field="${usuario.confirmacaoSenha}">
 
                                         <div class="form-group">
-                                            <label for="role" class="form-label required">Tipo de usuário</label>
-                                            <select  class="custom-select" id="role" th:field="${usuario.role}" required>
+                                            <label for="funcao" class="form-label required">Tipo de usuário</label>
+                                            <select class="custom-select" id="funcao" th:field="${usuario.funcao}" required>
                                                 <option th:value="1">Administrador</option>
                                                 <option th:value="2">Requisitante</option>
                                                 <option th:value="3">Operador</option>

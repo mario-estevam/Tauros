@@ -5,7 +5,6 @@ import com.eaj.tauros.models.Setor;
 import com.eaj.tauros.models.User;
 import com.eaj.tauros.repositories.ChamadoRepository;
 import com.eaj.tauros.util.Constantes;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -59,7 +58,7 @@ public class ChamadoService {
     }
 
     public Chamado findByUsuarioAndId(User user, Long id){
-        return repository.findByUserOpenAndId(user, id);
+        return repository.findByUsuarioAberturaAndId(user, id);
     }
 
     public List<Chamado> getAll(){
@@ -85,15 +84,15 @@ public class ChamadoService {
     }
 
     public List<Chamado> chamadosEmAberto(){
-        return repository.findAllByUserCloseIsNull();
+        return repository.findAllByUsuarioAtendimentoIsNull();
     }
 
     public List<Chamado> meusChamados(User user,String status){
-        return repository.getByUserOpenAndDeleteIsNullAndStatus(user,status);
+        return repository.getByUsuarioAberturaAndDeleteIsNullAndStatus(user,status);
     }
 
     public List<Chamado> meusAtendimentos(User user, String status){
-        return repository.findAllByUserCloseAndDeleteIsNullAndStatus(user, status);
+        return repository.findAllByUsuarioAtendimentoAndDeleteIsNullAndStatus(user, status);
     }
 
     public Integer totalConcluidos(){
@@ -101,7 +100,7 @@ public class ChamadoService {
     }
 
     public Integer totalChamadosByStatusAndUser(String status, User user){
-        return repository.countAllByStatusLikeAndUserClose(status,user);
+        return repository.countAllByStatusLikeAndUsuarioAtendimento(status,user);
     }
 
     public Integer totalAbertos(){
@@ -129,11 +128,11 @@ public class ChamadoService {
     }
 
     public List<Chamado> findByStatusAndSetorAndUserClose(String status, Setor setor, User user){
-        return repository.findAllByStatusAndSetorAndUserClose(status,setor, user);
+        return repository.findAllByStatusAndSetorAndUsuarioAtendimento(status,setor, user);
     }
 
     public List<Chamado> findByStatusAndUser(String status, User user){
-        return repository.findAllByStatusAndUserClose(status,user);
+        return repository.findAllByStatusAndUsuarioAtendimento(status,user);
     }
 
 }

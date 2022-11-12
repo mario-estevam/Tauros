@@ -171,9 +171,9 @@
                                             <td th:text="${chamado.id}"></td>
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
-                                            <td th:text="${chamado.userOpen.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.nome}"></td>
                                             <td th:text="${chamado.data}"></td>
-                                            <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                             <td>
                                                 <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span data-toggle="tooltip" data-placement="top" title="Detalhes do chamado" class="icon text-primary">
@@ -210,9 +210,9 @@
                                             <td th:text="${chamado.id}"></td>
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
-                                            <td th:text="${chamado.userOpen.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.nome}"></td>
                                             <td th:text="${chamado.data}"></td>
-                                            <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                             <td>
                                                 <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none ml-3">
                                             <span data-toggle="tooltip" data-placement="top" title="Detalhes do chamado" class="icon text-primary">
@@ -244,9 +244,9 @@
                                             <td th:text="${chamado.id}"></td>
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
-                                            <td th:text="${chamado.userOpen.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.nome}"></td>
                                             <td th:text="${chamado.data}"></td>
-                                            <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                             <td>
                                                 <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none pt-2 ml-3">
                                             <span data-toggle="tooltip" data-placement="top" title="Detalhes do chamado"  class="icon text-primary">
@@ -321,9 +321,9 @@
                                         <tr th:each="chamado : ${chamadosEmAtraso}">
                                             <td th:text="${chamado.status}"></td>
                                             <td th:text="${chamado.problema.nome}"></td>
-                                            <td th:text="${chamado.userOpen.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.nome}"></td>
                                             <td th:text="${chamado.data}"></td>
-                                            <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                            <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                             <td>
                                                 <a th:href="@{'/detalhes/chamado/' + ${chamado.id}}" class=" text-decoration-none pt-2 ml-3">
                                             <span class="icon text-primary">

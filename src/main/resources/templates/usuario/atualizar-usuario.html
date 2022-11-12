@@ -47,19 +47,19 @@
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <input hidden th:field="${usuario.id}">
-                                                <label for="role" class="form-label required">Nome de usuário</label>
+                                                <label for="funcao" class="form-label required">Nome de usuário</label>
                                                 <input th:field="${usuario.userName}" type="text" class="form-control form-control-user" id="exampleFirstName"
                                                        placeholder="Nome de usuário">
 
                                             </div>
                                             <div class="col-sm-6">
-                                                <label for="role" class="form-label required">Nome</label>
+                                                <label for="funcao" class="form-label required">Nome</label>
                                                 <input th:field="${usuario.nome}" type="text" class="form-control form-control-user" id="exampleLastName"
                                                        placeholder="Nome completo">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="role" class="form-label required">Email</label>
+                                            <label for="funcao" class="form-label required">Email</label>
                                             <input th:field="${usuario.email}" type="email" class="form-control form-control-user" id="exampleInputEmail"
                                                    placeholder="Email">
 
@@ -78,8 +78,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="role" class="form-label required">Tipo de usuário</label>
-                                            <select  class="custom-select" id="role" th:field="${usuario.role}" required>
+                                            <label for="funcao" class="form-label required">Tipo de usuário</label>
+                                            <select class="custom-select" id="funcao" th:field="${usuario.funcao}" required>
                                                 <option th:value="1">Administrador</option>
                                                 <option th:value="2">Requisitante</option>
                                                 <option th:value="3">Operador</option>

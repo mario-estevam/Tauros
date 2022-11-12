@@ -67,9 +67,9 @@
                                 <tr th:each="chamado : ${chamados}">
                                     <td th:text="${chamado.status}"></td>
                                     <td th:text="${chamado.problema.nome}"></td>
-                                    <td th:text="${chamado.userOpen.nome}"></td>
+                                    <td th:text="${chamado.usuarioAbertura.nome}"></td>
                                     <td th:text="${chamado.data}"></td>
-                                    <td th:text="${chamado.userOpen.setor.nome}"></td>
+                                    <td th:text="${chamado.usuarioAbertura.setor.nome}"></td>
                                     <td>
                                         <a  data-toggle="tooltip" data-placement="top" title="Deletar chamado" th:href="@{'/deletar/chamado/' + ${chamado.id}}" class="text-decoration-none">
                                             <span class="icon text-danger">

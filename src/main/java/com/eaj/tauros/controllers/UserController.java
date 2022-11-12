@@ -2,7 +2,7 @@ package com.eaj.tauros.controllers;
 
 import com.eaj.tauros.models.Setor;
 import com.eaj.tauros.models.User;
-import com.eaj.tauros.repositories.RoleRepository;
+import com.eaj.tauros.repositories.FuncaoRepository;
 import com.eaj.tauros.services.ChamadoService;
 import com.eaj.tauros.services.SetorService;
 import com.eaj.tauros.services.UserService;
@@ -29,7 +29,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    RoleRepository roleRepository;
+    FuncaoRepository funcaoRepository;
 
     @Autowired
     SetorService setorService;
@@ -52,13 +52,13 @@ public class UserController {
         if(Boolean.FALSE.equals(user.getAtivo())){
             return "redirect:/logout";
         }
-        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+        if(Objects.equals(user.getFuncao().getDescricao(), "ADMIN")){
             return "redirect:/listar/chamados-admin";
-        } else if(Objects.equals(user.getRole().getRole(), "REQUISITANTE")){
+        } else if(Objects.equals(user.getFuncao().getDescricao(), "REQUISITANTE")){
           return "redirect:/meus-chamados";
-        } else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
+        } else if(Objects.equals(user.getFuncao().getDescricao(), "OPERADOR")){
           return "redirect:/listar/chamados-operador";
-        }else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+        }else if(Objects.equals(user.getFuncao().getDescricao(), "RESPONSAVELSETOR")){
             return "redirect:/listar/chamados-responsavel-setor";
         }else{
           return "redirect:/login";
@@ -69,13 +69,13 @@ public class UserController {
     public String voltar(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+        if(Objects.equals(user.getFuncao().getDescricao(), "ADMIN")){
             return "redirect:/chamados";
-        } else if(Objects.equals(user.getRole().getRole(), "REQUISITANTE")){
+        } else if(Objects.equals(user.getFuncao().getDescricao(), "REQUISITANTE")){
             return "redirect:/meus-chamados";
-        } else if(Objects.equals(user.getRole().getRole(), "OPERADOR")){
+        } else if(Objects.equals(user.getFuncao().getDescricao(), "OPERADOR")){
             return "redirect:/listar/chamados-operador";
-        }else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+        }else if(Objects.equals(user.getFuncao().getDescricao(), "RESPONSAVELSETOR")){
             return "redirect:/listar/chamados-responsavel-setor";
         }else{
             return "redirect:/login";
@@ -86,9 +86,9 @@ public class UserController {
     public String voltarUsuarios(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+        if(Objects.equals(user.getFuncao().getDescricao(), "ADMIN")){
             return "redirect:/admin/listar/usuarios";
-        } else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+        } else if(Objects.equals(user.getFuncao().getDescricao(), "RESPONSAVELSETOR")){
             return "redirect:/responsavel/listar/usuarios";
         } else{
             return "redirect:/logout";
@@ -211,7 +211,7 @@ public class UserController {
             modelAndView.addObject("senhas","as senhas não coincidem");
             modelAndView.addObject("usuario", user);
             modelAndView.setViewName("usuario/atualizar-usuario");
-        } else if(user2.getRole().getRole().equals("ADMIN")) {
+        } else if(user2.getFuncao().getDescricao().equals("ADMIN")) {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "Usuario atualizado com sucesso");
             modelAndView.addObject("usuario", new User());
@@ -257,15 +257,20 @@ public class UserController {
         List<Setor> setores = setorService.getAll();
         modelAndView.addObject("setores", setores);
         modelAndView.addObject("usuario2", user2);
-        modelAndView.addObject("usuario", user2);
+        modelAndView.addObject("usuario", user);
         modelAndView.addObject("successMessage", "Usuario atualizado com sucesso");
         userService.updateUser(user);
-        modelAndView.addObject("usuario",user2);
+        modelAndView.addObject("usuario",user);
         modelAndView.setViewName("usuario/alterar-usuario");
 
         return modelAndView;
     }
 
+    // devido um erro de requisição após cadastrar um usuário, foi criada essa rota aqui temporariamente até achar uma solução eficaz
+    @GetMapping("/js/datatable.js")
+    public String ajusteLogin(){
+        return "redirect:/index";
+    }
 
     @GetMapping(value="/cadastro/usuario")
     public ModelAndView createUserPublic(){
@@ -340,10 +345,10 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
         userService.deletar(id);
-        if(Objects.equals(user.getRole().getRole(), "ADMIN")){
+        if(Objects.equals(user.getFuncao().getDescricao(), "ADMIN")){
             redirectAttributes.addAttribute("msg", "Usuário desabilitado com sucesso!");
             return "redirect:/admin/listar/usuarios";
-        } else if(Objects.equals(user.getRole().getRole(), "RESPONSAVELSETOR")){
+        } else if(Objects.equals(user.getFuncao().getDescricao(), "RESPONSAVELSETOR")){
             redirectAttributes.addAttribute("msg", "Usuário desabilitado com sucesso!");
             return "redirect:/responsavel/listar/usuarios";
         }

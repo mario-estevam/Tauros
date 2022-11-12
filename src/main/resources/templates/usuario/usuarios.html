@@ -49,7 +49,7 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Tabela de usuários</h6>
                         <hr/>
-                        <a th:if="${usuario2.role.role == 'ADMIN'}" href="/admin/cadastro/usuario" class="btn btn-outline-primary"> Adicionar Usuário </a>
+                        <a th:if="${usuario2.funcao.descricao == 'ADMIN'}" href="/admin/cadastro/usuario" class="btn btn-outline-primary"> Adicionar Usuário </a>
                     </div>
                     <div class="m-2">
                         <div class="card">
@@ -78,7 +78,7 @@
                                         <tr th:each="usuario : ${usuarios}">
                                             <td th:text="${usuario.nome}"></td>
                                             <td th:text="${usuario.userName}"></td>
-                                            <td th:text="${usuario.role.getRole()}"></td>
+                                            <td th:text="${usuario.funcao.descricao}"></td>
                                             <td th:if="(${usuario.setor})" th:text="${usuario.setor.getNome()}"></td>
                                             <td th:unless="(${usuario.setor})">----</td>
                                             <td th:text="${usuario.email}"></td>
@@ -142,7 +142,7 @@
                                         <tr th:each="usuario : ${usuariosInativos}">
                                             <td th:text="${usuario.nome}"></td>
                                             <td th:text="${usuario.userName}"></td>
-                                            <td th:text="${usuario.role.getRole()}"></td>
+                                            <td th:text="${usuario.funcao.descricao}"></td>
                                             <td th:if="(${usuario.setor})" th:text="${usuario.setor.getNome()}"></td>
                                             <td th:unless="(${usuario.setor})">----</td>
                                             <td th:text="${usuario.email}"></td>

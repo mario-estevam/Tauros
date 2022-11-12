@@ -1,6 +1,6 @@
 package com.eaj.tauros.services;
 
-import com.eaj.tauros.models.Role;
+import com.eaj.tauros.models.Funcao;
 import com.eaj.tauros.models.Setor;
 import com.eaj.tauros.models.User;
 
@@ -87,9 +87,7 @@ public class UserService {
     public User saveUser(User user) {
         user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
         user.setConfirmacaoSenha(bCryptPasswordEncoder.encode(user.getConfirmacaoSenha()));
-        Role userRole = user.getRole();
         user.setAtivo(true);
-        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         return userRepository.save(user);
     }
 
@@ -100,10 +98,7 @@ public class UserService {
     public User saveUserPublic(User user) {
         user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
         user.setConfirmacaoSenha(bCryptPasswordEncoder.encode(user.getConfirmacaoSenha()));
-        Role userRole = user.getRole();
         user.setAtivo(Boolean.FALSE);
-        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
-
         return userRepository.save(user);
     }
 

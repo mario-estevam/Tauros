@@ -43,12 +43,12 @@ public class Chamado {
     Setor setor;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_open_id")
-    User userOpen;
+    @JoinColumn(name = "usuario_abertura_id")
+    User usuarioAbertura;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_close_id")
-    User userClose;
+    @JoinColumn(name = "usuario_atendimento_id")
+    User usuarioAtendimento;
 
 
 }

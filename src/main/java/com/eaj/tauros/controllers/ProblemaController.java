@@ -68,7 +68,7 @@ public class ProblemaController {
         modelAndView.addObject("count", count);
         User user = userService.findUserByUserName(auth.getName());
         modelAndView.addObject("usuario2", user);
-        if(user.getRole().getRole().equals("RESPONSAVELSETOR")){
+        if(user.getFuncao().getDescricao().equals("RESPONSAVELSETOR")){
            problema.setSetor(user.getSetor());
         }
         problemaService.insert(problema);
@@ -109,7 +109,7 @@ public class ProblemaController {
     public String editSave(@ModelAttribute Problema problema, RedirectAttributes redirectAttributes){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        if(user.getRole().getRole().equals("RESPONSAVELSETOR")){
+        if(user.getFuncao().getDescricao().equals("RESPONSAVELSETOR")){
             problema.setSetor(user.getSetor());
         }
         problemaService.insert(problema);

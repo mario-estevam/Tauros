@@ -56,7 +56,7 @@
                         </p>
                         <p>
                             <strong>Requisitante:</strong>
-                        <h5 th:text="${chamado.userOpen.nome}"> </h5>
+                        <h5 th:text="${chamado.usuarioAbertura.nome}"> </h5>
                         </p>
                         <p>
                             <strong>Data:</strong>
@@ -64,8 +64,8 @@
                         </p>
                         <p>
                             <strong>Operador:</strong>
-                        <h5 th:if="${chamado.userClose != null}" th:text="${chamado.userClose.nome}"> </h5>
-                        <h5 th:unless="${chamado.userClose != null}"> nenhum operador atendendo a este chamado </h5>
+                        <h5 th:if="${chamado.usuarioAtendimento != null}" th:text="${chamado.usuarioAtendimento.nome}"> </h5>
+                        <h5 th:unless="${chamado.usuarioAtendimento != null}"> nenhum operador atendendo a este chamado </h5>
                         </p>
                         <p>
                             <strong>Descricao:</strong>
