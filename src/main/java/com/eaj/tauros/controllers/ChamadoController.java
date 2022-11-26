@@ -148,6 +148,7 @@ public class ChamadoController {
         List<Chamado> chamadosEmAtraso = chamadoService.findByStatus(Constantes.STATUS_ATRASADO);
         modelAndView.addObject("chamadosEmAndamento", chamadosEmAndamento);
         modelAndView.addObject("chamadosEmAberto", chamadosEmAberto);
+        modelAndView.addObject("chamadosEmAtraso", chamadosEmAberto);
         getModAndViewsForChamados(modelAndView, totalConluidos, totalEmAndamento, totalEmAtraso, totalAbertos, chamadosEmAtraso, "chamadosEmAtraso");
         modelAndView.setViewName("chamado/admin-chamados");
         return modelAndView;
@@ -239,6 +240,7 @@ public class ChamadoController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+        chamado.setUsuarioAbertura(user);
         modelAndView.addObject("usuario2", user);
         chamadoService.insert(chamado);
         List<Setor> setores = setorService.getAll();
@@ -246,7 +248,7 @@ public class ChamadoController {
 
         List<Problema> problemas = problemaService.getAll();
         modelAndView.addObject("problemas", problemas);
-        modelAndView.addObject("successMessage", "Setor atualizado com sucesso");
+        modelAndView.addObject("successMessage", "Chamado atualizado com sucesso");
         Chamado chamado1 = new Chamado();
         modelAndView.addObject("chamado", chamado1);
         modelAndView.setViewName("chamado/editar-chamado");

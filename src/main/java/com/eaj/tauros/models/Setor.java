@@ -24,5 +24,4 @@ public class Setor {
 
     private Date delete;
 
-
 }

@@ -267,10 +267,7 @@ public class UserController {
     }
 
     // devido um erro de requisição após cadastrar um usuário, foi criada essa rota aqui temporariamente até achar uma solução eficaz
-    @GetMapping("/js/datatable.js")
-    public String ajusteLogin(){
-        return "redirect:/index";
-    }
+
 
     @GetMapping(value="/cadastro/usuario")
     public ModelAndView createUserPublic(){
@@ -305,7 +302,7 @@ public class UserController {
         } else {
             userService.saveUserPublic(user);
             redirectAttributes.addAttribute("msg", "Usuário Cadastrado com sucesso!");
-            return "redirect:/login";
+            return "redirect:/cadastro/usuario";
         }
 
     }
