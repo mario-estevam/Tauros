@@ -71,12 +71,7 @@
             <span>Problemas</span>
         </a>
 
-        <a th:if="${usuario2.funcao.descricao == 'ADMIN' || usuario2.funcao.descricao == 'RESPONSAVELSETOR'}" class="nav-link " href="/problemas" >
-            <i class="fas fa-fw fa-shield-virus"></i>
-            <span>Problemas</span>
-        </a>
-
-        <a th:if="${usuario2.funcao.descricao == 'ADMIN' || usuario2.funcao.descricao == 'RESPONSAVELSETOR'}" class="nav-link " href="/problemas" >
+        <a th:if="${usuario2.funcao.descricao == 'ADMIN' || usuario2.funcao.descricao == 'RESPONSAVELSETOR'}" class="nav-link " href="/relatorio/setor/responsavel" >
             <i class="fas fa-fw fa-clipboard"></i>
             <span>Relatório do Setor</span>
         </a>
