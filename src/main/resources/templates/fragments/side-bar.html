@@ -71,14 +71,14 @@
             <span>Problemas</span>
         </a>
 
-        <a th:if="${usuario2.funcao.descricao == 'ADMIN' || usuario2.funcao.descricao == 'RESPONSAVELSETOR'}" class="nav-link " href="/relatorio/setor/responsavel" >
+        <a th:if=" ${usuario2.funcao.descricao == 'RESPONSAVELSETOR'}" class="nav-link " href="/relatorio/setor/responsavel" >
             <i class="fas fa-fw fa-clipboard"></i>
             <span>Relatório do Setor</span>
         </a>
 
-        <a th:if="${usuario2.funcao.descricao == 'ADMIN' || usuario2.funcao.descricao == 'RESPONSAVELSETOR'}" class="nav-link " href="/problemas" >
+        <a th:if="${usuario2.funcao.descricao == 'ADMIN'}" class="nav-link " href="/relatorio/setor/admin" >
             <i class="fas fa-fw fa-clipboard-list"></i>
-            <span>Relatorio por operador</span>
+            <span>Relatorio por Setor</span>
         </a>
     </li>
 

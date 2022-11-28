@@ -36,7 +36,7 @@ public class RelatoriosService {
 
     public RelatorioSetorDTO relatorioSetorResponsavel(Setor setor){
         List<User> operadoresEficientes = userRepository.findOperadorEficienteResponsavelSetor(setor.getId());
-        List<Problema> problemasRecorrente = problemaRepository.findProblemaFrequente();
+        List<Problema> problemasRecorrente = problemaRepository.findProblemaFrequenteResponsavelSetor(setor.getId());
         RelatorioSetorDTO relatorioSetorDTO = new RelatorioSetorDTO();
         List<OperadorDTO> operadores = new ArrayList<>();
         operadoresEficientes.forEach(op -> {
