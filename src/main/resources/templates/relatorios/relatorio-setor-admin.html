@@ -37,6 +37,7 @@
                     Selecione um setor:
                     <div th:if="${usuario2.funcao.descricao == 'ADMIN'}" class="col-sm-6 d-inline-flex">
                         <select type="submit"  class="custom-select" id="setor" th:field="${setor.id}" required>
+                            <option value="" selected="selected" >Selecione uma opção...</option>
                             <option th:each="setor:${setores}" th:text="${setor.nome}"  th:value="${setor.id}"></option>
                         </select>
                         <div class="invalid-feedback">Esse campo não pode estar vazio.</div>
